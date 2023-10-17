@@ -65,6 +65,8 @@ variable \@[^@\s,]+;
   	import {Declarate, Declarate_def, Set, Select} from "../instruction/Declarate.js"
   	import {var_list} from "../instruction/Declarate.js"
   	import Aritmertic from "../expression/Aritmetic.js"
+	import Relational from "../expression/Relational.js"
+	import Logics from "../expression/Logics.js"
 
 %}
 
@@ -75,7 +77,10 @@ variable \@[^@\s,]+;
 // %left 'MAS' 'MENOS'
 // %left 'POR' 'DIVISION' 'MODULO'
 // %right 'UMENOS '
-
+%left 'OR'
+%left 'AND'
+%left 'NOT'
+%left 'EQUAL' 'DIFERENT' 'MINOR' 'MINOREQUAL' 'GREATER' 'GREATEREQUAL'
 %left 'PLUS' 'LESS'
 %left 'DIVIDED' 'MODUL'
 %right 'NEG'
@@ -171,23 +176,62 @@ expresion
 	| aritmetica{
 		$$ = $1
 	}
+	| relacional{
+		$$ = $1
+	}
+	| logica{
+		$$ = $1
+	}
 ;
 
 aritmetica
-	: primitivo PLUS primitivo{
+	: expresion PLUS expresion{
 		$$ = new Aritmertic($1, $2, $3, @1.first_line, @1.first_column)
 	}
-	| primitivo LESS primitivo{
+	| expresion LESS expresion{
 		$$ = new Aritmertic($1, $2, $3, @1.first_line, @1.first_column)
 	}
-	| primitivo DIVIDED primitivo{
+	| expresion DIVIDED expresion{
 		$$ = new Aritmertic($1, $2, $3, @1.first_line, @1.first_column)
 	}
-	| primitivo MODUL primitivo{
+	| expresion MODUL expresion{
 		$$ = new Aritmertic($1, $2, $3, @1.first_line, @1.first_column)
 	}
-	| LESS primitivo %prec NEG{
+	| LESS expresion %prec NEG{
 		$$ = new Aritmertic($2, "!", $2, @1.first_line, @1.first_column)
+	}
+;
+
+relacional
+	: expresion EQUAL expresion{
+		$$ = new Relational($1, $2, $3, @1.first_line, @1.first_column)
+	}
+	| expresion DIFERENT expresion{
+		$$ = new Relational($1, $2, $3, @1.first_line, @1.first_column)
+	}
+	| expresion MINOR expresion{
+		$$ = new Relational($1, $2, $3, @1.first_line, @1.first_column)
+	}
+	| expresion MINOREQUAL expresion{
+		$$ = new Relational($1, $2, $3, @1.first_line, @1.first_column)
+	}
+	| expresion GREATER expresion{
+		$$ = new Relational($1, $2, $3, @1.first_line, @1.first_column)
+	}
+	| expresion GREATEREQUAL expresion{
+		$$ = new Relational($1, $2, $3, @1.first_line, @1.first_column)
+	}
+;
+
+logica 
+	: expresion AND expresion{
+		$$ = new Logics($1, $2, $3, @1.first_line, @1.first_column)
+	}
+	| expresion OR expresion{
+		$$ = new Logics($1, $2, $3, @1.first_line, @1.first_column)
+	}
+	| NOT expresion{
+		$$ = new Logics($2, $1, $2, @1.first_line, @1.first_column)
 	}
 ;
 
