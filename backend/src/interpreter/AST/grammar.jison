@@ -14,8 +14,7 @@ variable \@[^@\s,]+;
 // -----> Reglas Lexicas
 ","						{ return 'COMMA'}
 "+"                     { return 'PLUS'}
-"\-"                    { return 'LESS'}
-"*"                     { return 'BY'}
+"-"                     { return 'LESS'}
 "/"                     { return 'DIVIDED'}
 "%"                     { return 'MODUL'}
 "="                     { return 'EQUAL'}
@@ -72,6 +71,14 @@ variable \@[^@\s,]+;
 
 
 // -------> Precedencia
+
+// %left 'MAS' 'MENOS'
+// %left 'POR' 'DIVISION' 'MODULO'
+// %right 'UMENOS '
+
+%left 'PLUS' 'LESS'
+%left 'DIVIDED' 'MODUL'
+%right 'NEG'
 
 //%left 'MAS' 'MENOS'
 
@@ -169,6 +176,18 @@ expresion
 aritmetica
 	: primitivo PLUS primitivo{
 		$$ = new Aritmertic($1, $2, $3, @1.first_line, @1.first_column)
+	}
+	| primitivo LESS primitivo{
+		$$ = new Aritmertic($1, $2, $3, @1.first_line, @1.first_column)
+	}
+	| primitivo DIVIDED primitivo{
+		$$ = new Aritmertic($1, $2, $3, @1.first_line, @1.first_column)
+	}
+	| primitivo MODUL primitivo{
+		$$ = new Aritmertic($1, $2, $3, @1.first_line, @1.first_column)
+	}
+	| LESS primitivo %prec NEG{
+		$$ = new Aritmertic($2, "!", $2, @1.first_line, @1.first_column)
 	}
 ;
 

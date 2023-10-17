@@ -5,11 +5,12 @@
   "main": "/backend/src/index.ts",
   "type": "module",
   "scripts": {
+    "generate": "ts-jison -t typescript -n QueryParser -n QueryParser -o ./src/interpreter/AST/parser.ts ./src/interpreter/AST/grammar.jison",
     "tsc": "tsc",
-    "start": "node ./dist/index.js",
     "dev": "nodemon ./dist/index.js",
-    "generate": "ts-jison -t typescript -n QueryParser -n QueryParser -o ./src/interpreter/AST/parser.ts ./src/interpreter/AST/grammar.jison"
-  },  
+    "compile": "npm run generate -post && npm run tsc -post && npm run dev",
+    "start": "node ./dist/index.js"
+  },
   "author": "nathanvdev",
   "license": "ISC",
   "dependencies": {

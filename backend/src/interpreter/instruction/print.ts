@@ -12,8 +12,6 @@ export default class Print extends Instruction {
 
     if (value.type == Type_dxnry.DATE) {
       let date = new Date(value.value)
-      var dias = 5 
-      date.setDate(date.getDate() + dias)
       console.log(date.toLocaleDateString("es-ES"))
     } else {
       console.log(value.value, "TIPO:", value.type)
