@@ -3,22 +3,12 @@
  * Returns a Parser implementing JisonParserApi and a Lexer implementing JisonLexerApi.
  */
 
-	// const {Print} = require("../instruction/print.ts")
-	// const {Primitive} = require("../expression/primitives.ts")
-	// const {Type_dxnry} = require("../abstrac/Return.ts")
-	// const {Declarate, Declarate_def, Set, Select} = require("../instruction/Declarate.ts")
-	// const {var_list} = require("../instruction/Declarate.ts")
-	// const {Aritmertic} = require("../expression/Aritmetic.ts")
-
-
   	import Print from '../instruction/print.js'
 	import Primitive from "../expression/primitives.js"
 	import {Type_dxnry} from "../abstrac/Return.js"
   	import {Declarate, Declarate_def, Set, Select} from "../instruction/Declarate.js"
   	import {var_list} from "../instruction/Declarate.js"
   	import Aritmertic from "../expression/Aritmetic.js"
-	
-
 
 
 import { JisonParser, JisonParserApi, StateType, SymbolsType, TerminalsType, ProductionsType, o } from '@ts-jison/parser';const $V0=[1,8],$V1=[1,9],$V2=[1,10],$V3=[1,11],$V4=[5,11,13,20,22],$V5=[1,24],$V6=[1,17],$V7=[1,18],$V8=[1,19],$V9=[1,20],$Va=[1,21],$Vb=[1,22],$Vc=[1,23],$Vd=[5,11,13,20,22,24],$Ve=[1,32],$Vf=[1,33],$Vg=[1,34],$Vh=[1,35],$Vi=[1,36],$Vj=[5,11,13,19,20,22],$Vk=[5,11,13,17,19,20,22];

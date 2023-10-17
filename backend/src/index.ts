@@ -1,5 +1,5 @@
-import {appserver} from './app.js'
+import { appserver } from './app.js'
 
-const PORT = 5000;
-appserver.listen(PORT);
-console.log(`Server en: http://localhost:${PORT}`);
+const PORT = 5000
+appserver.listen(PORT)
+console.log(`Server en: http://localhost:${PORT}`)

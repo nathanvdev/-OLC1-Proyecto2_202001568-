@@ -8,6 +8,6 @@ export enum Type_dxnry {
 }
 
 export type Return = {
-  value: any;
-  type: Type_dxnry;
-};
+  value: any
+  type: Type_dxnry
+}

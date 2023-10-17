@@ -1,12 +1,12 @@
-import  Environment  from "./Environment.js";
+import Environment from "./Environment.js"
 
 export default abstract class Instruction {
-  public line: number;
-  public column: number;
+  public line: number
+  public column: number
   constructor(Line: number, Column: number) {
-    this.line = Line;
-    this.column = Column;
+    this.line = Line
+    this.column = Column
   }
 
-  public abstract execute(env: Environment): any;
+  public abstract execute(env: Environment): any
 }

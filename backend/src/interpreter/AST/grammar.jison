@@ -60,22 +60,12 @@ variable \@[^@\s,]+;
 // Codigo Typerscript
 
 %{
-	// const {Print} = require("../instruction/print.ts")
-	// const {Primitive} = require("../expression/primitives.ts")
-	// const {Type_dxnry} = require("../abstrac/Return.ts")
-	// const {Declarate, Declarate_def, Set, Select} = require("../instruction/Declarate.ts")
-	// const {var_list} = require("../instruction/Declarate.ts")
-	// const {Aritmertic} = require("../expression/Aritmetic.ts")
-
-
   	import Print from '../instruction/print.js'
 	import Primitive from "../expression/primitives.js"
 	import {Type_dxnry} from "../abstrac/Return.js"
   	import {Declarate, Declarate_def, Set, Select} from "../instruction/Declarate.js"
   	import {var_list} from "../instruction/Declarate.js"
   	import Aritmertic from "../expression/Aritmetic.js"
-	
-
 
 %}
 
