@@ -9,9 +9,13 @@ decimal \d+\.\d+;
 entero  [0-9]+;
 cadena 	\"([^"\\]|\\.)*\";
 variable \@[^@\s,]+;
+id 		[a-z][a-z0-9_-]*
 
 %%
 // -----> Reglas Lexicas
+"("                     { return 'PARENIZQ'}
+")"                     { return 'PARENDER'}
+";"                     { return 'PUNTOCOMA'}
 ","						{ return 'COMMA'}
 "+"                     { return 'PLUS'}
 "-"                     { return 'LESS'}
@@ -39,11 +43,20 @@ variable \@[^@\s,]+;
 "default"				{ return 'RDEFAULT'}
 "set"					{ return 'RSET'}
 "select"				{ return 'RSELECT'}
+"create"				{ return 'RCREATE'}
+"table"					{ return 'RTABLE'}
+"alter"					{ return 'RALTER'}
+"add"					{ return 'RADD'}
+"drop"					{ return 'RDROP'}
+"column"				{ return 'RCOLUMN'}
+"rename"				{ return 'RRENAME'}
+"to"					{ return 'RTO'}
 {variable}				{ return 'VARIABLE_NAME'}
 {date}					{ return 'DATE'}
 {decimal}               { return 'DECIMAL'} 
 {entero}                { return 'ENTERO'}
 {cadena}				{ return 'CADENA'}
+{id}					{ return 'ID'}
 
 // -----> Espacios en Blanco
 [ \s\r\n\t]             {/* Espacios se ignoran */}
@@ -67,6 +80,11 @@ variable \@[^@\s,]+;
   	import Aritmertic from "../expression/Aritmetic.js"
 	import Relational from "../expression/Relational.js"
 	import Logics from "../expression/Logics.js"
+	import Create_Table  from '../instruction/Create_table.js'
+	import Alter_Add from '../instruction/Alter_Add.js'
+	import Alter_Drop from '../instruction/Alter_Drop.js'
+	import Alter_Rename_table from '../instruction/Alter_Rename_table.js'
+	import Alter_Rename_column from '../instruction/Alter_Rename_column.js'
 
 %}
 
@@ -74,9 +92,6 @@ variable \@[^@\s,]+;
 
 // -------> Precedencia
 
-// %left 'MAS' 'MENOS'
-// %left 'POR' 'DIVISION' 'MODULO'
-// %right 'UMENOS '
 %left 'OR'
 %left 'AND'
 %left 'NOT'
@@ -85,7 +100,6 @@ variable \@[^@\s,]+;
 %left 'DIVIDED' 'MODUL'
 %right 'NEG'
 
-//%left 'MAS' 'MENOS'
 
 // -------> Simbolo Inicial
 %start start
@@ -122,6 +136,7 @@ instruccion
 	| select{
 		$$ = $1
 	}
+	|ddl
 ;
 
 print	
@@ -167,6 +182,50 @@ select
 		$$ = new Select(id_tmp5, @1.first_line, @1.first_column)
 	}
 ;
+
+ddl
+	: create{
+		$$ = $1
+	}
+	| alter{
+		$$ = $1
+	}
+;
+
+create
+	: RCREATE RTABLE ID PARENIZQ column_list PARENDER PUNTOCOMA{
+		$$ = new Create_Table($3, $5, @1.first_line, @1.first_column)
+	}
+;
+
+column_list
+	: column_list COMMA ID data_type{
+		$$ = $1
+		$1.push([$3, $4])
+	}
+	| ID data_type{
+		$$ = []
+		$$.push([$1, $2])
+	}
+;
+
+alter
+	: RALTER RTABLE ID RADD ID data_type PUNTOCOMA{
+		$$ = new Alter_Add($3, $5, $6, @1.first_line, @1.first_column)
+	}
+	| RALTER RTABLE ID RDROP RCOLUMN ID PUNTOCOMA{
+		$$ = new Alter_Drop($3, $6, @1.first_line, @1.first_column)
+	}
+	| RALTER RTABLE ID RRENAME RTO ID PUNTOCOMA{
+		$$ = new Alter_Rename_table($3, $6, @1.first_line, @1.first_column)
+	}
+	| RALTER RTABLE ID RRENAME RCOLUMN ID RTO ID PUNTOCOMA{
+		$$ = new Alter_Rename_column($3, $6, $8, @1.first_line, @1.first_column)
+	}
+;
+
+
+
 
 
 expresion	
