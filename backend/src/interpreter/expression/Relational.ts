@@ -3,11 +3,11 @@ import Expression from "../abstrac/Expression.js";
 import { Return, Type_dxnry } from "../abstrac/Return.js";
 
 export default class Relational extends Expression {
-    private izq: Expression
-    private operator: string
-    private der: Expression
-    constructor(izq: Expression, operator: string, der: Expression, line: number, column: number) {
-        super(line, column);
+    public izq: Expression
+    public operator: string
+    public der: Expression
+    constructor(izq: Expression, operator: string, der: Expression) {
+        super();
         this.izq = izq
         this.operator = operator;
         this.der = der

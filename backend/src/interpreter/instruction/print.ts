@@ -4,8 +4,10 @@ import Instruction from "../abstrac/Instruction.js"
 import { Type_dxnry } from "../abstrac/Return.js"
 
 export default class Print extends Instruction {
-  constructor(Line: number, Column: number, private expression: Expression) {
-    super(Line, Column)
+  private expression: Expression
+  constructor(expression: Expression) {
+    super()
+    this.expression = expression
   }
   public execute(env: Environment) {
     const value = this.expression.execute(env)

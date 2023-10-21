@@ -2,8 +2,12 @@ import Expression from "../abstrac/Expression.js"
 import { Return, Type_dxnry } from "../abstrac/Return.js"
 
 export default class Primitive extends Expression {
-  constructor(Line: number, Column: number, private value: any, private type: Type_dxnry) {
-    super(Line, Column)
+  private value
+  private type
+  constructor(value: any, type: Type_dxnry) {
+    super()
+    this.value = value
+    this.type = type
   }
   public execute(): Return {
     switch (this.type) {

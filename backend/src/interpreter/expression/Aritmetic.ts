@@ -9,8 +9,8 @@ export default class Aritmertic extends Expression {
   private operator: string
   private der: Expression
 
-  constructor(izq: Expression, operator: string, der: Expression, line: number, column: number) {
-    super(line, column)
+  constructor(izq: Expression, operator: string, der: Expression) {
+    super()
     this.izq = izq
     this.operator = operator
     this.der = der
