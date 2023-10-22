@@ -3,7 +3,7 @@ import Instruction from "../../abstrac/Instruction.js"
 import { Node_table, Table_SQL } from "../../abstrac/Table_SQL.js"
 
 
-export default class Create_Table extends Instruction {
+export default class ddl_Create_Table extends Instruction {
     private Name: string
     private Headers: []
 

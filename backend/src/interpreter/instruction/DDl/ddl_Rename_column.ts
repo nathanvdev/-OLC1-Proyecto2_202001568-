@@ -1,13 +1,15 @@
 import Environment from "../../abstrac/Environment.js";
 import Instruction from "../../abstrac/Instruction.js";
 
-export default class Rename_table extends Instruction{
+export default class ddl_Rename_Column extends Instruction{
     private Table_name: string
+    private Column_name: string
     private New_name: string
 
-    constructor(table_name: string, new_name: string) {
+    constructor(table_name: string, column_name: string, new_name: string) {
         super()
         this.Table_name = table_name
+        this.Column_name = column_name
         this.New_name = new_name
     }
 
@@ -18,8 +20,6 @@ export default class Rename_table extends Instruction{
             return
         }
 
-        env.Rename_table(this.Table_name, this.New_name)
+        Table.Rename_column(this.Column_name, this.New_name)
     }
-        
-
 }

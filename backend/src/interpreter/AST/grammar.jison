@@ -89,12 +89,13 @@ id 		[a-z][a-z0-9_-]*
   	import Aritmertic from "../expression/Aritmetic.js"
 	import Relational from "../expression/Relational.js"
 	import Logics from "../expression/Logics.js"
-	import Create_Table from '../instruction/DDl/Create_Table.js'
-	import Add from '../instruction/DDl/Add.js'
-	import {Drop_Column, Drop_Table} from '../instruction/DDl/Drop.js'
- 	import Rename_table from '../instruction/DDl/Rename_table.js'
-	import Rename_Column from '../instruction/DDl/Rename_column.js'
-	import Insert from '../instruction/DML/Insert.js'
+	import ddl_Create_Table from '../instruction/DDl/ddl_Create_Table.js'
+	import ddl_Add from '../instruction/DDl/ddl_Add.js'
+	import { ddl_Drop_Column, ddl_Drop_Table } from '../instruction/DDl/ddl_Drop.js'
+	import ddl_Rename_table from '../instruction/DDl/ddl_Rename_table.js'
+	import ddl_Rename_Column from '../instruction/DDl/ddl_Rename_column.js'
+	import dml_Insert from '../instruction/DML/dml_Insert.js'
+	import { dml_Select, dml_Select_where } from '../instruction/DML/dml_Select.js'
 %}
 
 
@@ -211,7 +212,7 @@ ddl
 
 create
 	: RCREATE RTABLE ID PARENIZQ column_list PARENDER PUNTOCOMA{
-		$$ = new Create_Table($3, $5)
+		$$ = new ddl_Create_Table($3, $5)
 	}
 ;
 
@@ -228,22 +229,22 @@ column_list
 
 alter
 	: RALTER RTABLE ID RADD ID data_type PUNTOCOMA{
-		$$ = new Add($3, $5, $6)
+		$$ = new ddl_Add($3, $5, $6)
 	}
 	| RALTER RTABLE ID RDROP RCOLUMN ID PUNTOCOMA{
-		$$ = new Drop_Column($3, $6)
+		$$ = new ddl_Drop_Column($3, $6)
 	}
 	| RALTER RTABLE ID RRENAME RTO ID PUNTOCOMA{
-		$$ = new Rename_table($3, $6)
+		$$ = new ddl_Rename_table($3, $6)
 	}
 	| RALTER RTABLE ID RRENAME RCOLUMN ID RTO ID PUNTOCOMA{
-		$$ = new Rename_Column($3, $6, $8)
+		$$ = new ddl_Rename_Column($3, $6, $8)
 	}
 ;
 
 drop
 	: RDROP RTABLE ID PUNTOCOMA{
-		$$ = new Drop_Table($3)
+		$$ = new ddl_Drop_Table($3)
 	}
 ;
 
@@ -258,7 +259,7 @@ dml
 
 dml_insert
 	: RINSERT RINTO ID PARENIZQ id_list PARENDER RVALUES PARENIZQ values_list PARENDER PUNTOCOMA{
-		$$ = new Insert($3, $5, $9)
+		$$ = new dml_Insert($3, $5, $9)
 	}
 ;
 
@@ -286,13 +287,16 @@ values_list
 
 dml_select
 	: RSELECT id_list RFROM ID PUNTOCOMA{
-		// $$ = new DML_Select($2, $4)
+		$$ = new dml_Select($2, $4)
 	}
 	| RSELECT BY RFROM ID PUNTOCOMA{
-		// $$ = new DML_Select_all($4)
+		$$ = new dml_Select("*", $4)
 	}
 	| RSELECT id_list RFROM ID RWHERE where_conds PUNTOCOMA{
-		// $$ = new DML_Select_where($2, $4, $6)
+		$$ = new dml_Select_where($2, $4, $6)
+	}
+	| RSELECT BY RFROM ID RWHERE where_conds PUNTOCOMA{
+		$$ = new dml_Select_where("*", $4, $6)
 	}
 ;
 

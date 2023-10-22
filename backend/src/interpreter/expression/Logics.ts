@@ -1,6 +1,7 @@
 import Environment from "../abstrac/Environment.js";
 import Expression from "../abstrac/Expression.js";
 import { Return, Type_dxnry } from "../abstrac/Return.js";
+import { Node_table } from "../abstrac/Table_SQL.js";
 
 export default class Logics extends Expression {
     public izq: Expression
@@ -33,5 +34,10 @@ export default class Logics extends Expression {
         }
 
         
+    }
+
+
+    public execute_where(env: Environment, node: Node_table): Return {
+        return { value: null, type: Type_dxnry.NULL };
     }
 }

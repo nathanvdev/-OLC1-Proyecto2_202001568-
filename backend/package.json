@@ -8,7 +8,7 @@
     "generate": "ts-jison -t typescript -n QueryParser -n QueryParser -o ./src/interpreter/AST/parser.ts ./src/interpreter/AST/grammar.jison",
     "tsc": "tsc",
     "dev": "nodemon ./dist/index.js",
-    "compile": "npm run generate -post && npm run tsc -post && npm run dev",
+    "compile": "npm run generate -post && npm run tsc -post",
     "start": "node ./dist/index.js"
   },
   "author": "nathanvdev",

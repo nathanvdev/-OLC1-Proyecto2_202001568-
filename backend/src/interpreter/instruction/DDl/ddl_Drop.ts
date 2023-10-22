@@ -1,7 +1,7 @@
 import Environment from "../../abstrac/Environment.js";
 import Instruction from "../../abstrac/Instruction.js";
 
-export class Drop_Column extends Instruction{
+export class ddl_Drop_Column extends Instruction{
     private Table_name: string
     private Column_name: string
 
@@ -22,7 +22,7 @@ export class Drop_Column extends Instruction{
     }
 }
 
-export class Drop_Table extends Instruction{
+export class ddl_Drop_Table extends Instruction{
     private Table_name: string
 
     constructor(table_name: string) {

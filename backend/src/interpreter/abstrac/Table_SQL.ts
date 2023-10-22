@@ -18,6 +18,10 @@ export class Node_table {
         return this.Column_name
     }
 
+    public getValue(): any {
+        return this.Content.value
+    }
+
     public getType(): number {
         return this.Content.type
     }
@@ -25,8 +29,8 @@ export class Node_table {
     public setValue(value_in: Return) {
         if (this.Content.type == value_in.type) {
             this.Content = value_in
-            
-        }else{
+
+        } else {
             console.log(`El tipo de dato no coincide con el tipo de la columna "${this.Column_name}"`)
         }
 
@@ -86,10 +90,6 @@ export class Table_SQL {
         return this.Headers.length
     }
 
-
-
-
-
     public InsertRow(toInsert: node_toInsert[]) {
         let newRow: Node_table[] = []
 
@@ -99,8 +99,8 @@ export class Table_SQL {
         });
 
         toInsert.forEach((insert: node_toInsert) => {
-            newRow.forEach((tmp_node:Node_table)=>{
-                if (insert[0]==tmp_node.getColumnName()) {
+            newRow.forEach((tmp_node: Node_table) => {
+                if (insert[0] == tmp_node.getColumnName()) {
                     tmp_node.setValue(insert[1])
                 }
             })
@@ -110,6 +110,24 @@ export class Table_SQL {
         console.log(`Se inserto una nueva fila en la tabla "${this.Name}"`);
     }
 
+    public getAllRows(): Node_table[][] {
+        return this.Rows
+    }
+
+    public getRows(Columns: string[]): Node_table[][] {
+        let RowsFinded: Node_table[][] =[]
+        this.Rows.forEach((row: Node_table[]) => {
+            let tmp: Node_table[] = []
+            row.forEach((tmp_column)=>{
+                if (Columns.includes(tmp_column.getColumnName())) {
+                    tmp.push(tmp_column)
+                }
+            })
+            RowsFinded.push(tmp)
+        });
+
+        return RowsFinded
+    }
 }
 
 interface node_toInsert {

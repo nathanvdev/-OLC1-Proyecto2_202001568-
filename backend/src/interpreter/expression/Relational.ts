@@ -1,6 +1,7 @@
 import Environment from "../abstrac/Environment.js";
 import Expression from "../abstrac/Expression.js";
 import { Return, Type_dxnry } from "../abstrac/Return.js";
+import { Node_table } from "../abstrac/Table_SQL.js";
 
 export default class Relational extends Expression {
     public izq: Expression
@@ -32,6 +33,62 @@ export default class Relational extends Expression {
                 return { value: op1.value >= op2.value, type: Type_dxnry.BOOLEAN };
             default:
                 return { value: null, type: Type_dxnry.NULL };
+        }
+    }
+
+    public execute_where(env: Environment, node: Node_table): Return {
+        
+        const result1 = this.Verify(this.izq, node.getColumnName())
+        const result2 = this.Verify(this.der.execute(env).value, node.getValue())
+        
+        if (result1 && result2) {
+            return { value: true, type: Type_dxnry.BOOLEAN };
+        }
+
+        return { value: false, type: Type_dxnry.NULL };
+    }
+
+    private Verify(izq: any, der: any): boolean {
+        switch (this.operator) {
+            case "=":
+                if (izq == der) {
+                    return true
+                }else{
+                    return false
+                }
+
+            case "!=":
+                if (izq != der) {
+                    return true
+                }else{
+                    return false
+                }
+            case "<":
+                if (izq < der) {
+                    return true
+                }else{
+                    return false
+                }
+            case ">":
+                if (izq > der) {
+                    return true
+                }else{
+                    return false
+                }
+            case "<=":
+                if (izq <= der) {
+                    return true
+                }else{
+                    return false
+                }
+            case ">=":
+                if (izq >= der) {
+                    return true
+                }else{
+                    return false
+                }
+            default:
+                    return false
         }
     }
 }

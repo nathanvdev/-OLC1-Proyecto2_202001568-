@@ -2,7 +2,7 @@ import Environment from "../../abstrac/Environment.js";
 import Instruction from "../../abstrac/Instruction.js";
 import Primitive from "../../expression/primitives.js";
 
-export default class Insert extends Instruction{
+export default class dml_Insert extends Instruction{
     private Table_name: string;
     private Columns: []
     private Values:Primitive []
