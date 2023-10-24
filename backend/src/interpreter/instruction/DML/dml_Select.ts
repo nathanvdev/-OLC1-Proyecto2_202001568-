@@ -39,9 +39,9 @@ export class dml_Select extends Instruction {
 export class dml_Select_where extends Instruction {
     private Columns: string[]
     private Table_name: string
-    private Where: Logics|Relational
+    private Where: Logics | Relational
 
-    constructor(columns: [] | string, table_name: string, where: Logics|Relational) {
+    constructor(columns: [] | string, table_name: string, where: Logics | Relational) {
         super()
         if (typeof columns == "string") {
             this.Columns = [columns]
@@ -66,22 +66,12 @@ export class dml_Select_where extends Instruction {
         }
 
         let Rows_f: Node_table[][] = []
-
-
-
-
-        Rows.forEach(row =>{
-            row.forEach(column =>{
-            const flag:Return =this.Where.execute_where(env, column)
+        Rows.forEach(row => {
+            const flag: Return = this.Where.execute_where(env, row)
             if (flag.value) {
                 Rows_f.push(row)
             }
-            })
         })
-        
-        console.log()
-
-
-
+        console.log(Rows_f)
     }
 }

@@ -1,4 +1,7 @@
+import Logics from "../expression/Logics.js"
+import Relational from "../expression/Relational.js"
 import Primitive from "../expression/primitives.js"
+import Environment from "./Environment.js"
 import { Return } from "./Return.js"
 
 
@@ -29,7 +32,6 @@ export class Node_table {
     public setValue(value_in: Return) {
         if (this.Content.type == value_in.type) {
             this.Content = value_in
-
         } else {
             console.log(`El tipo de dato no coincide con el tipo de la columna "${this.Column_name}"`)
         }
@@ -37,12 +39,20 @@ export class Node_table {
     }
 
     public DeleteColumn() {
-        this.Column_name = "null"
+        this.Column_name = "-null"
         this.Content = { value: null, type: 0 }
     }
 
     public RenameColumn(new_name: string) {
         this.Column_name = new_name
+    }
+
+    public Update(Columns: string[][], env: Environment) {
+        Columns.forEach((column: string[]) => {
+            if (column[0] == this.Column_name) {
+
+            }
+        })
     }
 }
 
@@ -115,10 +125,10 @@ export class Table_SQL {
     }
 
     public getRows(Columns: string[]): Node_table[][] {
-        let RowsFinded: Node_table[][] =[]
+        let RowsFinded: Node_table[][] = []
         this.Rows.forEach((row: Node_table[]) => {
             let tmp: Node_table[] = []
-            row.forEach((tmp_column)=>{
+            row.forEach((tmp_column) => {
                 if (Columns.includes(tmp_column.getColumnName())) {
                     tmp.push(tmp_column)
                 }
@@ -128,9 +138,41 @@ export class Table_SQL {
 
         return RowsFinded
     }
+
+    public Update(Columns: [][], Where: Logics | Relational, env: Environment) {
+        this.Rows.forEach(row => {
+            const flag: Return = Where.execute_where(env, row)
+            if (flag.value) {
+                Columns.forEach((column: string[]) => {
+                    row.forEach((tmp_column: Node_table) => {
+                        if (column[0] == tmp_column.getColumnName()) {
+                            const izq = column[1] as unknown as Primitive;
+                            tmp_column.setValue(izq.execute())
+                            console.log(`Se actualizo la columna "${tmp_column.getColumnName()}" en la tabla "${this.Name}"`);
+                        }
+                    })
+                })
+            }
+        })
+    }
+
+    public Truncate() {
+        this.Rows = []
+        console.log(`Se vacio la tabla "${this.Name}"`);
+    }
+
+    public Delete(Where: Logics | Relational, env: Environment) {
+        this.Rows.forEach((row: Node_table[]) => {
+            const flag: Return = Where.execute_where(env, row)
+            if (flag.value) {
+                this.Rows.splice(this.Rows.indexOf(row), 1)
+                console.log(`Se elimino una fila de la tabla "${this.Name}"`);
+            }
+        })
+    }
 }
 
 interface node_toInsert {
     0: string;
     1: Return;
-}
+}1

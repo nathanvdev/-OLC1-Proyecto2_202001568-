@@ -58,6 +58,14 @@ id 		[a-z][a-z0-9_-]*
 "values"				{ return 'RVALUES'}
 "from"					{ return 'RFROM'}
 "where"					{ return 'RWHERE'}
+"update"				{ return 'RUPDATE'}
+"truncate"				{ return 'RTRUNCATE'}
+"delete"				{ return 'RDELETE'}
+"cast"					{ return 'RCAST'}
+"as"					{ return 'RAS'}
+"if"					{ return 'RIF'}
+"then"					{ return 'RTHEN'}
+"end"					{ return 'END'}
 {variable}				{ return 'VARIABLE_NAME'}
 {date}					{ return 'DATE'}
 {decimal}               { return 'DECIMAL'} 
@@ -96,6 +104,10 @@ id 		[a-z][a-z0-9_-]*
 	import ddl_Rename_Column from '../instruction/DDl/ddl_Rename_column.js'
 	import dml_Insert from '../instruction/DML/dml_Insert.js'
 	import { dml_Select, dml_Select_where } from '../instruction/DML/dml_Select.js'
+	import dml_Update from '../instruction/DML/dml_update.js'
+	import dml_Truncate from '../instruction/DML/dml_Truncate.js'
+	import dml_Delete from '../instruction/DML/dml_Delete.js'
+	import Cast from '../expression/Cast.js'
 %}
 
 
@@ -150,6 +162,9 @@ instruccion
 		$$ = $1
 	}
 	| dml{
+		$$ = $1
+	}
+	| if{
 		$$ = $1
 	}
 ;
@@ -255,6 +270,15 @@ dml
 	| dml_select{
 		$$ = $1
 	}
+	| dml_update{
+		$$ = $1
+	}
+	|dml_truncate{
+		$$ = $1
+	}
+	|dml_delete{
+		$$ = $1
+	}
 ;
 
 dml_insert
@@ -299,6 +323,38 @@ dml_select
 		$$ = new dml_Select_where("*", $4, $6)
 	}
 ;
+
+dml_update
+	: RUPDATE ID RSET set_columns RWHERE where_conds PUNTOCOMA{
+		$$ = new dml_Update($2, $4, $6)
+	}
+;
+
+set_columns
+	: ID EQUAL primitivo{
+		$$ = []
+		$$.push([$1, $3])
+	}
+	| set_columns COMMA ID EQUAL primitivo{
+		$$ = $1
+		$1.push([$3, $5])
+	}
+;
+
+dml_truncate
+	: RTRUNCATE RTABLE ID PUNTOCOMA{
+		$$ = new dml_Truncate($3)
+	}
+;
+
+dml_delete
+	: RDELETE RFROM ID RWHERE where_conds PUNTOCOMA{
+		$$ = new dml_Delete($3, $5)
+	}
+;
+
+
+
 
 where_conds
 	: where_conds AND where_conds{
@@ -376,6 +432,9 @@ expresion
 		$$ = $1
 	}
 	| logica{
+		$$ = $1
+	}
+	| cast{
 		$$ = $1
 	}
 ;
@@ -457,6 +516,12 @@ primitivo
 	}
 	| error{
 		console.error('Error sintáctico: ' + yytext + ',  linea: ' + this.$.first_line + ', columna: ' + this.$.first_column)
+	}
+;
+
+cast
+	: RCAST PARENIZQ expresion RAS data_type PARENDER{
+		$$ = new Cast( $3, $5)
 	}
 ;
 

@@ -36,59 +36,60 @@ export default class Relational extends Expression {
         }
     }
 
-    public execute_where(env: Environment, node: Node_table): Return {
-        
-        const result1 = this.Verify(this.izq, node.getColumnName())
-        const result2 = this.Verify(this.der.execute(env).value, node.getValue())
-        
-        if (result1 && result2) {
-            return { value: true, type: Type_dxnry.BOOLEAN };
-        }
+    public execute_where(env: Environment, row: Node_table[]): Return {
+        let result: Return = { value: false, type: Type_dxnry.BOOLEAN }
+        for (const node of row) {
+            const result1 = this.Verify(this.izq, "=", node.getColumnName())
+            const result2 = this.Verify(this.der.execute(env).value, this.operator, node.getValue())
 
-        return { value: false, type: Type_dxnry.NULL };
+            if (result1 && result2) {
+                result = { value: true, type: Type_dxnry.BOOLEAN }
+            }
+        }
+        return result
     }
 
-    private Verify(izq: any, der: any): boolean {
-        switch (this.operator) {
+    private Verify(izq: any, operator: string, der: any): boolean {
+        switch (operator) {
             case "=":
                 if (izq == der) {
                     return true
-                }else{
+                } else {
                     return false
                 }
 
             case "!=":
                 if (izq != der) {
                     return true
-                }else{
+                } else {
                     return false
                 }
             case "<":
                 if (izq < der) {
                     return true
-                }else{
+                } else {
                     return false
                 }
             case ">":
                 if (izq > der) {
                     return true
-                }else{
+                } else {
                     return false
                 }
             case "<=":
                 if (izq <= der) {
                     return true
-                }else{
+                } else {
                     return false
                 }
             case ">=":
                 if (izq >= der) {
                     return true
-                }else{
+                } else {
                     return false
                 }
             default:
-                    return false
+                return false
         }
     }
 }
