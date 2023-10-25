@@ -8,7 +8,7 @@ date	\d{4}\-\d{2}\-\d{2};
 decimal \d+\.\d+;
 entero  [0-9]+;
 cadena 	\"([^"\\]|\\.)*\";
-variable \@[^@\s,]+;
+variable \@[^@\s,;]+
 id 		[a-z][a-z0-9_-]*
 
 
@@ -23,12 +23,12 @@ id 		[a-z][a-z0-9_-]*
 "/"                     { return 'DIVIDED'}
 "*"                     { return 'BY'}
 "%"                     { return 'MODUL'}
-"="                     { return 'EQUAL'}
-"!="                    { return 'DIFERENT'}
-"<"                     { return 'MINOR'}
-"<="                    { return 'MINOREQUAL'}
-">"                     { return 'GREATER'}
 ">="                    { return 'GREATEREQUAL'}
+"<="                    { return 'MINOREQUAL'}
+"!="                    { return 'DIFERENT'}
+"="                     { return 'EQUAL'}
+"<"                     { return 'MINOR'}
+">"                     { return 'GREATER'}
 "and"                   { return 'AND'}
 "or"                    { return 'OR'}
 "not"                   { return 'NOT'}
@@ -43,6 +43,7 @@ id 		[a-z][a-z0-9_-]*
 "varchar"				{ return 'RVARCHAR'}	
 "boolean"				{ return 'RBOOLEAN'}
 "default"				{ return 'RDEFAULT'}
+"end"					{ return 'REND'}
 "set"					{ return 'RSET'}
 "select"				{ return 'RSELECT'}
 "create"				{ return 'RCREATE'}
@@ -65,7 +66,9 @@ id 		[a-z][a-z0-9_-]*
 "as"					{ return 'RAS'}
 "if"					{ return 'RIF'}
 "then"					{ return 'RTHEN'}
-"end"					{ return 'END'}
+"else"					{ return 'RELSE'}
+"when"					{ return 'RWHEN'}
+"case"					{ return 'RCASE'}
 {variable}				{ return 'VARIABLE_NAME'}
 {date}					{ return 'DATE'}
 {decimal}               { return 'DECIMAL'} 
@@ -108,6 +111,12 @@ id 		[a-z][a-z0-9_-]*
 	import dml_Truncate from '../instruction/DML/dml_Truncate.js'
 	import dml_Delete from '../instruction/DML/dml_Delete.js'
 	import Cast from '../expression/Cast.js'
+	import Statement from '../instruction/Statement.js'
+	import If from '../instruction/If.js'
+	import Variable from '../expression/Variable.js'
+	import Case from '../instruction/Case.js'
+  	import Group from '../expression/Group.js'
+
 %}
 
 
@@ -117,7 +126,7 @@ id 		[a-z][a-z0-9_-]*
 %left 'OR'
 %left 'AND'
 %left 'NOT'
-%left 'EQUAL' 'DIFERENT' 'MINOR' 'MINOREQUAL' 'GREATER' 'GREATEREQUAL'
+%left 'EQUAL' 'DIFERENT' 'MINOR' 'MINOREQUAL' 'GREATER' 'GREATEREQUAL' 
 %left 'PLUS' 'LESS'
 %left 'DIVIDED' 'MODUL'
 %right 'NEG'
@@ -167,19 +176,22 @@ instruccion
 	| if{
 		$$ = $1
 	}
+	| case{
+		$$ = $1
+	}
 ;
 
 print	
-	: RPRINT expresion{
+	: RPRINT expresion PUNTOCOMA{
 		$$ = new Print( $2)
 	}
 ;
 
 declare
-	: RDECLARE variable_l {
+	: RDECLARE variable_l PUNTOCOMA{
 		$$ = new Declarate($2)
 	}
-	| RDECLARE VARIABLE_NAME data_type RDEFAULT primitivo{
+	| RDECLARE VARIABLE_NAME data_type RDEFAULT primitivo PUNTOCOMA{
 		// DECLARE @id INT DEFAULT 1
 		let id_tmp3 = $2.toString().replace("@","")
 		$$ = new Declarate_def(id_tmp3, $3, $5)
@@ -200,14 +212,14 @@ variable_l
 ;
 
 set 
-	: RSET VARIABLE_NAME EQUAL primitivo{
+	: RSET VARIABLE_NAME EQUAL primitivo PUNTOCOMA{
 		let id_tmp4 = $2.toString().replace("@","")
 		$$ = new Set(id_tmp4, $4)
 	}
 ;
 
 select
-	: RSELECT VARIABLE_NAME{
+	: RSELECT VARIABLE_NAME PUNTOCOMA{
 		let id_tmp5 = $2.toString().replace("@","")
 		$$ = new Select(id_tmp5)
 	}
@@ -414,9 +426,53 @@ arit_cond
 ;
 
 
+if
+	: RIF expresion RTHEN newStatement REND RIF PUNTOCOMA{
+		$$ = new If($2, $4, null)
+	}
+	| RIF expresion RTHEN newStatement RELSE newStatement REND RIF PUNTOCOMA{
+		$$ = new If($2, $4, $6)
+	}
+;
+
+case 
+	: RCASE expresion case_list RELSE expresion REND PUNTOCOMA{
+		$$ = new Case($2, $3, $5, null)
+	}
+	| RCASE expresion case_list RELSE expresion REND a_s PUNTOCOMA{
+		$$ = new Case($2, $3, $5, $7)
+	}
+	| RCASE case_list RELSE expresion REND PUNTOCOMA{
+		$$ = new Case(null, $2, $4, null)
+	}
+	| RCASE case_list RELSE expresion REND a_s PUNTOCOMA{
+		$$ = new Case(null, $2, $4, $6)
+	}
+;
+
+a_s
+	: RAS expresion{
+		$$ = $2
+	}
+;
+
+case_list
+	: case_list RWHEN expresion RTHEN expresion{
+		$$ = $1
+		$1.push([$3, $5])
+	}
+	| RWHEN expresion RTHEN expresion{
+		$$ = []
+		$$.push([$2, $4])
+	}
+;
 
 
-
+newStatement
+	: instrucciones{
+		$$ = new Statement($1)
+	}
+;
 
 
 
@@ -436,6 +492,14 @@ expresion
 	}
 	| cast{
 		$$ = $1
+	}
+	| PARENIZQ expresion PARENDER{
+		$$ = new Group($2)
+	} 
+
+	| VARIABLE_NAME{
+		let id_tmp6 = $1.toString().replace("@","")
+		$$ = new Variable(id_tmp6)
 	}
 ;
 
@@ -514,9 +578,6 @@ primitivo
 	| RNULL{
 		$$ = new Primitive( $1, Type_dxnry.NULL)
 	}
-	| error{
-		console.error('Error sintáctico: ' + yytext + ',  linea: ' + this.$.first_line + ', columna: ' + this.$.first_column)
-	}
 ;
 
 cast
@@ -540,5 +601,8 @@ data_type
 	}
 	| RBOOLEAN{
 		$$ = Type_dxnry.BOOLEAN
+	}
+	| error{
+		console.error('Error sintáctico: ' + yytext + ',  linea: ' + this.$.first_line + ', columna: ' + this.$.first_column)
 	}
 ;

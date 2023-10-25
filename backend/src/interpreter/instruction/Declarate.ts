@@ -71,5 +71,6 @@ export class Select extends Instruction {
 
     public execute(env: Environment) {
         env.Select(this.id.toLowerCase())
+        
     }
 }

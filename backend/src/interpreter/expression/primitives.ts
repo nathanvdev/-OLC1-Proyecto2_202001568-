@@ -2,13 +2,17 @@ import Expression from "../abstrac/Expression.js"
 import { Return, Type_dxnry } from "../abstrac/Return.js"
 
 export default class Primitive extends Expression {
+
   private value
   private type
+  
   constructor(value: any, type: Type_dxnry) {
     super()
     this.value = value
     this.type = type
   }
+
+
   public execute(): Return {
     switch (this.type) {
       case Type_dxnry.INT:

@@ -2,7 +2,6 @@ import { Div_table, Mod_table, Neg_table, Res_table, Sum_table } from "../abstra
 import Environment from "../abstrac/Environment.js"
 import Expression from "../abstrac/Expression.js"
 import { Return, Type_dxnry } from "../abstrac/Return.js"
-import Primitive from "./primitives.js"
 
 export default class Aritmertic extends Expression {
   private izq: Expression
@@ -15,6 +14,7 @@ export default class Aritmertic extends Expression {
     this.operator = operator
     this.der = der
   }
+  
   public execute(env: Environment): Return {
     const op1 = this.izq.execute(env)
     const op2 = this.der.execute(env)
