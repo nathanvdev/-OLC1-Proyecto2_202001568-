@@ -1,6 +1,8 @@
 import Environment from "../abstrac/Environment.js"
 import Instruction from "../abstrac/Instruction.js"
 import { Return, Type_dxnry } from "../abstrac/Return.js"
+import Aritmertic from "../expression/Aritmetic.js"
+import Primitive from "../expression/primitives.js"
 
 
 export class var_list {
@@ -57,6 +59,10 @@ export class Set extends Instruction {
     }
 
     public execute(env: Environment): any {
+        if (this.value instanceof Aritmertic) {
+            env.Set(this.id.toLowerCase(), this.value.execute(env))
+            return
+        }
         env.Set(this.id.toLowerCase(), this.value)
     }
 }

@@ -1,13 +1,12 @@
 let tmp = `
-declare @nota2 int;
-SET @nota2 = 99;
+declare @contador int;
+set @contador = 0;
 
-CASE @nota2
-     WHEN 100 THEN "Sobresaliente"
-     WHEN 99 THEN "Muy Bueno"
-     WHEN 98 THEN "Bueno"
-     ELSE "Aprobado"
-END AS @mensaje;
+while @contador < 10;
+begin
+    SET @contador = @contador + 1;
+end;
+
 `
 
 

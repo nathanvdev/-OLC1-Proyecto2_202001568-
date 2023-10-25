@@ -14,7 +14,7 @@ export default class Aritmertic extends Expression {
     this.operator = operator
     this.der = der
   }
-  
+
   public execute(env: Environment): Return {
     const op1 = this.izq.execute(env)
     const op2 = this.der.execute(env)
@@ -50,24 +50,24 @@ export default class Aritmertic extends Expression {
     const Result_type: Type_dxnry = Sum_table[op1.type][op2.type]
     switch (Result_type) {
       case Type_dxnry.INT:
-        if (op1.type = Type_dxnry.STRING) {
+        if (op1.type == Type_dxnry.STRING) {
           op1.value = parseInt(op1.value)
 
         }
-        if (op2.type = Type_dxnry.STRING) {
+        if (op2.type == Type_dxnry.STRING) {
           op2.value = parseInt(op2.value)
 
         }
-        return { value: op1.value + op2.value, type: Type_dxnry.INT }
+        return { value: parseInt(op1.value) + parseInt(op2.value), type: Type_dxnry.INT }
 
       case Type_dxnry.DOUBLE:
-        if (op1.type = Type_dxnry.STRING) {
+        if (op1.type == Type_dxnry.STRING) {
           op1.value = parseInt(op1.value)
         }
-        if (op2.type = Type_dxnry.STRING) {
+        if (op2.type == Type_dxnry.STRING) {
           op2.value = parseInt(op2.value)
         }
-        return { value: op1.value + op2.value, type: Type_dxnry.DOUBLE }
+        return { value: parseFloat(op1.value) + parseFloat(op2.value), type: Type_dxnry.DOUBLE }
 
       case Type_dxnry.DATE:
         let date: Date

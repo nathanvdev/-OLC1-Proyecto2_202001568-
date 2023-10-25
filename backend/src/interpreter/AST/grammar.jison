@@ -69,6 +69,9 @@ id 		[a-z][a-z0-9_-]*
 "else"					{ return 'RELSE'}
 "when"					{ return 'RWHEN'}
 "case"					{ return 'RCASE'}
+"begin"					{ return 'RBEGIN'}
+"end"					{ return 'REND'}
+"while"					{ return 'RWHILE'}
 {variable}				{ return 'VARIABLE_NAME'}
 {date}					{ return 'DATE'}
 {decimal}               { return 'DECIMAL'} 
@@ -116,6 +119,7 @@ id 		[a-z][a-z0-9_-]*
 	import Variable from '../expression/Variable.js'
 	import Case from '../instruction/Case.js'
   	import Group from '../expression/Group.js'
+    import While from '../instruction/While.js'
 
 %}
 
@@ -179,6 +183,9 @@ instruccion
 	| case{
 		$$ = $1
 	}
+	| while{
+		$$ = $1
+	}
 ;
 
 print	
@@ -193,35 +200,31 @@ declare
 	}
 	| RDECLARE VARIABLE_NAME data_type RDEFAULT primitivo PUNTOCOMA{
 		// DECLARE @id INT DEFAULT 1
-		let id_tmp3 = $2.toString().replace("@","")
-		$$ = new Declarate_def(id_tmp3, $3, $5)
+		$$ = new Declarate_def($2, $3, $5)
 	}
 ;
 
 variable_l
 	: variable_l COMMA VARIABLE_NAME data_type{
-		let id_tmp1 = $3.toString().replace("@","")
-		$1.push(new var_list(id_tmp1, $4))
+		$1.push(new var_list($3, $4))
 		$$ = $1
 	}
 	| VARIABLE_NAME data_type{
-		let id_tmp2 = $1.toString().replace("@","")
 
-		$$ = [new var_list(id_tmp2, $2)]
+
+		$$ = [new var_list($1, $2)]
 	}
 ;
 
 set 
-	: RSET VARIABLE_NAME EQUAL primitivo PUNTOCOMA{
-		let id_tmp4 = $2.toString().replace("@","")
-		$$ = new Set(id_tmp4, $4)
+	: RSET VARIABLE_NAME EQUAL expresion PUNTOCOMA{
+		$$ = new Set($2, $4)
 	}
 ;
 
 select
 	: RSELECT VARIABLE_NAME PUNTOCOMA{
-		let id_tmp5 = $2.toString().replace("@","")
-		$$ = new Select(id_tmp5)
+		$$ = new Select($2)
 	}
 ;
 
@@ -475,6 +478,17 @@ newStatement
 ;
 
 
+while
+	: RWHILE expresion RBEGIN newStatement REND PUNTOCOMA{
+		$$ = new While($2, $4)
+	}
+;
+
+// begin
+// 	: RBEGIN newStatement REND PUNTOCOMA{
+// 		$$ = new Statement($2)
+// 	}
+// ;
 
 
 expresion	
@@ -498,8 +512,7 @@ expresion
 	} 
 
 	| VARIABLE_NAME{
-		let id_tmp6 = $1.toString().replace("@","")
-		$$ = new Variable(id_tmp6)
+		$$ = new Variable($1)
 	}
 ;
 

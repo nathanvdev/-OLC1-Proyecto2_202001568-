@@ -2,10 +2,9 @@ import Environment from "../abstrac/Environment.js";
 import Instruction from "../abstrac/Instruction.js";
 
 export default class Statement {
-
-
-    constructor(private body: Array<Instruction>) {
-
+    private body: Array<Instruction>
+    constructor(body: Array<Instruction>) {
+        this.body = body
     }
 
 
@@ -29,6 +28,10 @@ export default class Statement {
         }
         return null
 
+    }
+
+    public clone(): Statement {
+        return new Statement(this.body)
     }
 
 }
