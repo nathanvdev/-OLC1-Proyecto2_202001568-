@@ -1,12 +1,13 @@
 let tmp = `
-declare @contador int;
-set @contador = 0;
+DECLARE @SumaCuadrados INT DEFAULT 0;
+DECLARE @id INT DEFAULT 1;
 
-while @contador < 10;
-begin
-    SET @contador = @contador + 1;
-end;
+FOR @id IN 1..10
+BEGIN
+SET @SumaCuadrados = @SumaCuadrados + (@id * @id);
+END;
 
+PRINT "La suma de los cuadrados de los 10 primeros números es: " + CAST(@SumaCuadrados AS VARCHAR);
 `
 
 

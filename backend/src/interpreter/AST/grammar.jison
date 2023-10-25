@@ -4,16 +4,17 @@
 
 // ---------> Expresiones Regulares
 
-date	\d{4}\-\d{2}\-\d{2};
-decimal \d+\.\d+;
-entero  [0-9]+;
-cadena 	\"([^"\\]|\\.)*\";
-variable \@[^@\s,;]+
+date	\d{4}\-\d{2}\-\d{2}
+decimal \d+\.\d+
+entero  [0-9]+
+cadena 	\"([^"\\]|\\.)*\"
+variable \@[^@\s,;()]+
 id 		[a-z][a-z0-9_-]*
 
 
 %%
 // -----> Reglas Lexicas
+".."					{ return 'RANGO'}
 "("                     { return 'PARENIZQ'}
 ")"                     { return 'PARENDER'}
 ";"                     { return 'PUNTOCOMA'}
@@ -72,6 +73,8 @@ id 		[a-z][a-z0-9_-]*
 "begin"					{ return 'RBEGIN'}
 "end"					{ return 'REND'}
 "while"					{ return 'RWHILE'}
+"for"					{ return 'RFOR'}
+"in"					{ return 'RIN'}
 {variable}				{ return 'VARIABLE_NAME'}
 {date}					{ return 'DATE'}
 {decimal}               { return 'DECIMAL'} 
@@ -120,6 +123,8 @@ id 		[a-z][a-z0-9_-]*
 	import Case from '../instruction/Case.js'
   	import Group from '../expression/Group.js'
     import While from '../instruction/While.js'
+    import For from '../instruction/For.js'
+
 
 %}
 
@@ -184,6 +189,9 @@ instruccion
 		$$ = $1
 	}
 	| while{
+		$$ = $1
+	}
+	| for{
 		$$ = $1
 	}
 ;
@@ -484,12 +492,12 @@ while
 	}
 ;
 
-// begin
-// 	: RBEGIN newStatement REND PUNTOCOMA{
-// 		$$ = new Statement($2)
-// 	}
-// ;
+for
+	: RFOR VARIABLE_NAME RIN ENTERO RANGO ENTERO RBEGIN newStatement REND PUNTOCOMA{
+		$$ = new For(new Variable($2), parseInt($4), parseInt($6), $8)
+	}
 
+;
 
 expresion	
 	: primitivo{

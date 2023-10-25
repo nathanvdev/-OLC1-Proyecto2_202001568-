@@ -13,15 +13,16 @@ export const analizar = (req: Request, res: Response) => {
   const { code_in } = req.body
   let ast_generated = new parser.QueryParserParser().parse(code_in)
 
-
-  for (const inst of ast_generated) {
-    inst.execute(env_global)
-  }
-  
   res.status(200).json({
     message: "Analisis Realizado",
     ast_generated: ast_generated,
   })
 
+  
+  for (const inst of ast_generated) {
+    inst.execute(env_global)
+  }
+  
+ 
 }
 
