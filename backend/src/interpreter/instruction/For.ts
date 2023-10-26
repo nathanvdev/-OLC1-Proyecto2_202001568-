@@ -1,6 +1,6 @@
 import Environment from "../abstrac/Environment.js";
 import Instruction from "../abstrac/Instruction.js";
-import { Return } from "../abstrac/Return.js";
+import { Return, Type_dxnry } from "../abstrac/Return.js";
 import Variable from "../expression/Variable.js";
 import Statement from "./Statement.js";
 
@@ -23,9 +23,18 @@ export default class For extends Instruction {
         if (variable.type != 0) {
             throw new Error("La variable debe ser de tipo number")
         }
+
         for (let i = this.start; i < this.end; i++) {
             variable.value = variable.value + 1
-            this.Statement.execute(env, env.nombre+"For")
+            const response = this.Statement.execute(env, env.nombre+"For")
+            
+            if (response != null || response!= undefined){
+                if(response.type == Type_dxnry.BREAK){
+                    break;
+                }else if(response.type == Type_dxnry.CONTINUE){
+                    continue;
+                }
+            }
         }
 
 

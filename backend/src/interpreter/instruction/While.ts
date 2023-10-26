@@ -28,25 +28,20 @@ export default class While extends Instruction{
             }
 
             // ejecutar codigo
-            const element = this.codeWhile.execute(env, env.nombre+" While")
+            const response = this.codeWhile.execute(env, env.nombre+" While")
             if( contador > 150){
                 console.log("Error: bucle infinito while");
                 break;
             }
 
-            if (element != null || element!= undefined){
-                if(element.type == Type_dxnry.RETURN){
-                    return element; 
-
-                }else if(element.type == Type_dxnry.BREAK){
-                    console.log("el break");
+            if (response != null || response!= undefined){
+                if(response.type == Type_dxnry.BREAK){
                     break;
-
-                }else if(element.type == Type_dxnry.CONTINUE){
+                }else if(response.type == Type_dxnry.CONTINUE){
                     continue;
-
                 }
             }
+            
 
             contador++;
 

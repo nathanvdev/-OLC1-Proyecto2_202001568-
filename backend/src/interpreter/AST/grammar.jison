@@ -75,6 +75,8 @@ id 		[a-z][a-z0-9_-]*
 "while"					{ return 'RWHILE'}
 "for"					{ return 'RFOR'}
 "in"					{ return 'RIN'}
+"break"					{ return 'RBREAK'}
+"continue"				{ return 'RCONTINUE'}
 {variable}				{ return 'VARIABLE_NAME'}
 {date}					{ return 'DATE'}
 {decimal}               { return 'DECIMAL'} 
@@ -193,6 +195,12 @@ instruccion
 	}
 	| for{
 		$$ = $1
+	}
+	| RBREAK PUNTOCOMA{
+		$$ = new Primitive( null, Type_dxnry.BREAK)
+	}
+	| RCONTINUE PUNTOCOMA{
+		$$ = new Primitive( null, Type_dxnry.CONTINUE)
 	}
 ;
 

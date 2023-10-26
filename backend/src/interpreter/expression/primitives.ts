@@ -35,6 +35,12 @@ export default class Primitive extends Expression {
         }
         return { value: false, type: Type_dxnry.BOOLEAN }
 
+      case Type_dxnry.BREAK:
+        return { value: null, type: Type_dxnry.BREAK }
+
+      case Type_dxnry.CONTINUE:
+        return { value: null, type: Type_dxnry.CONTINUE }
+
       default:
         return { value: null, type: Type_dxnry.NULL }
     }

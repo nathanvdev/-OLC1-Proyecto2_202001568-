@@ -5,9 +5,8 @@ export enum Type_dxnry {
   STRING = 3,
   BOOLEAN = 4,
   NULL = 5,
-  RETURN = 6,
-  BREAK = 7,
-  CONTINUE
+  BREAK = 6,
+  CONTINUE = 7
 }
 
 export type Return = {
