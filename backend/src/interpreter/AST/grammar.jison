@@ -11,9 +11,10 @@ variable \@[^@\s,;()-]+
 cadena 	\"([^"\\]|\\.)*\"
 id 		[a-z_][a-z0-9_]*
 
-
 %%
 // -----> Reglas Lexicas
+"--".*					{ /* Comentarios de linea */ }
+\/\*[\s\S]*?\*\/		{ /* Comentarios multilinea */ }
 "*"                     { return 'BY'}
 ".."					{ return 'RANGO'}
 "("                     { return 'PARENIZQ'}
@@ -82,6 +83,12 @@ id 		[a-z_][a-z0-9_]*
 "returns"				{ return 'RRETURNS'}
 "procedure"				{ return 'RPROCEDURE'}
 "call"					{ return 'RCALL'}
+"lower"					{ return 'RLOWER'}
+"upper"					{ return 'RUPPER'}
+"round"					{ return 'RROUND'}
+"len"				{ return 'RLENGTH'}
+"truncate"				{ return 'RTRUNCATE'}
+"typeof"				{ return 'RTYPEOF'}
 {variable}				{ return 'VARIABLE_NAME'}
 {date}					{ return 'DATE'}
 {decimal}               { return 'DECIMAL'} 
@@ -91,6 +98,8 @@ id 		[a-z_][a-z0-9_]*
 
 // -----> Espacios en Blanco
 [ \s\r\n\t]             {/* Espacios se ignoran */}
+{coment_line}           {/* Comentarios de linea se ignoran */}
+{coment_multiline}      {/* Comentarios multilinea se ignoran */}
 
 
 
@@ -137,6 +146,12 @@ id 		[a-z_][a-z0-9_]*
     import CallFunction from '../instruction/CallFunction.js'
 	import Procedure from '../instruction/Procedure.js'
     import CallProcedure from '../instruction/CallProcedure.js'
+	import ToLower from '../expression/Lower.js'
+    import TOUpper from '../expression/Upper.js'
+    import Round from '../expression/Round.js'
+    import Lenght from '../expression/Lenght.js'
+    import Truncate from '../expression/Truncate.js'
+    import TypeOf from '../expression/TypeOf.js'
 
 %}
 
@@ -150,7 +165,7 @@ id 		[a-z_][a-z0-9_]*
 %left 'EQUAL' 'DIFERENT' 'MINOR' 'MINOREQUAL' 'GREATER' 'GREATEREQUAL' 
 %left 'PLUS' 'LESS'
 %left 'BY' 'DIVIDED' 'MODUL' 
-%right 'NEG'
+++++++%right 'NEG'
 
 
 // -------> Simbolo Inicial
@@ -267,7 +282,7 @@ set
 ;
 
 select
-	: RSELECT VARIABLE_NAME PUNTOCOMA{
+	: RSELECT expresion PUNTOCOMA{
 		$$ = new Select($2)
 	}
 ;
@@ -343,17 +358,6 @@ dml
 dml_insert
 	: RINSERT RINTO ID PARENIZQ id_list PARENDER RVALUES PARENIZQ values_list PARENDER PUNTOCOMA{
 		$$ = new dml_Insert($3, $5, $9)
-	}
-;
-
-id_list
-	: id_list COMMA ID{
-		$$ = $1
-		$1.push($3)
-	}
-	| ID{
-		$$ = []
-		$$.push($1)
 	}
 ;
 
@@ -547,11 +551,6 @@ function
 	}
 ;
 
-call_function
-	: RSELECT ID PARENIZQ args PARENDER PUNTOCOMA{
-		$$ = new CallFunction($2, $4)
-	}
-;
 
 args
 	: args COMMA expresion{
@@ -607,6 +606,9 @@ expresion
 	| cast{
 		$$ = $1
 	}
+	| natives{
+		$$ = $1
+	}
 	| PARENIZQ expresion PARENDER{
 		$$ = new Group($2)
 	} 
@@ -614,11 +616,20 @@ expresion
 	| VARIABLE_NAME{
 		$$ = new Variable($1)
 	}
-	| ID{
-		$$ = $1
-	} 
 	| ID PARENIZQ args PARENDER{
 		$$ = new CallFunction($1, $3)
+	}
+;
+
+
+id_list
+	: id_list COMMA ID{
+		$1.push($3)
+		$$ = $1
+	}
+	| ID{
+		$$ = []
+		$$.push($1)
 	}
 ;
 
@@ -705,6 +716,33 @@ primitivo
 cast
 	: RCAST PARENIZQ expresion RAS data_type PARENDER{
 		$$ = new Cast( $3, $5)
+	}
+;
+
+natives
+	: RLOWER PARENIZQ expresion PARENDER{
+		$$ = new ToLower($3)
+	}
+	| RUPPER PARENIZQ expresion PARENDER{
+		$$ = new TOUpper($3)
+	}
+	| RROUND PARENIZQ expresion COMMA ENTERO PARENDER{
+		$$ = new Round($3, new Primitive( $5, Type_dxnry.INT))
+	}
+	| RROUND PARENIZQ expresion PARENDER{
+		$$ = new Round($3, null)
+	}
+	| RLENGTH PARENIZQ expresion PARENDER{
+		$$ = new Lenght($3)
+	}
+	| RTRUNCATE PARENIZQ expresion COMMA ENTERO PARENDER{
+		$$ = new Truncate($3, new Primitive( $5, Type_dxnry.INT))
+	}
+	| RTRUNCATE PARENIZQ expresion PARENDER{
+		$$ = new Truncate($3, null)
+	}
+	| RTYPEOF PARENIZQ expresion PARENDER{
+		$$ = new TypeOf($3)
 	}
 ;
 

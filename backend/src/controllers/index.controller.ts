@@ -2,7 +2,6 @@ import * as parser from '../interpreter/AST/parser.js'
 
 import { Request, Response } from "express"
 import Environment from "../interpreter/abstrac/Environment.js"
-import { Type_dxnry } from '../interpreter/abstrac/Return.js'
 const env_global = new Environment(null, "global")
 
 export const index = (req: Request, res: Response) => {
@@ -21,10 +20,7 @@ export const analizar = (req: Request, res: Response) => {
 
 
   for (const inst of ast_generated) {
-    const response = inst.execute(env_global)
-    if (response != null || response != undefined) {
-        continue
-    }
+    inst.execute(env_global)
   }
 
 

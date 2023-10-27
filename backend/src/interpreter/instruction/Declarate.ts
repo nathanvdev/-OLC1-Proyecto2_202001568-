@@ -1,8 +1,8 @@
 import Environment from "../abstrac/Environment.js"
+import Expression from "../abstrac/Expression.js"
 import Instruction from "../abstrac/Instruction.js"
 import { Return, Type_dxnry } from "../abstrac/Return.js"
 import Aritmertic from "../expression/Aritmetic.js"
-import Primitive from "../expression/primitives.js"
 
 
 export class var_list {
@@ -68,15 +68,15 @@ export class Set extends Instruction {
 }
 
 export class Select extends Instruction {
-    private id: string
+    private expr: Expression
 
-    constructor(id: string) {
+    constructor(id: Expression) {
         super()
-        this.id = id
+        this.expr = id
     }
 
     public execute(env: Environment) {
-        env.Select(this.id.toLowerCase())
-        
+        let result = this.expr.execute(env)
+        console.log(result.value)
     }
 }
