@@ -7,13 +7,14 @@
 date	\d{4}\-\d{2}\-\d{2}
 decimal \d+\.\d+
 entero  [0-9]+
+variable \@[^@\s,;()-]+
 cadena 	\"([^"\\]|\\.)*\"
-variable \@[^@\s,;()]+
-id 		[a-z][a-z0-9_-]*
+id 		[a-z_][a-z0-9_]*
 
 
 %%
 // -----> Reglas Lexicas
+"*"                     { return 'BY'}
 ".."					{ return 'RANGO'}
 "("                     { return 'PARENIZQ'}
 ")"                     { return 'PARENDER'}
@@ -22,7 +23,6 @@ id 		[a-z][a-z0-9_-]*
 "+"                     { return 'PLUS'}
 "-"                     { return 'LESS'}
 "/"                     { return 'DIVIDED'}
-"*"                     { return 'BY'}
 "%"                     { return 'MODUL'}
 ">="                    { return 'GREATEREQUAL'}
 "<="                    { return 'MINOREQUAL'}
@@ -77,6 +77,11 @@ id 		[a-z][a-z0-9_-]*
 "in"					{ return 'RIN'}
 "break"					{ return 'RBREAK'}
 "continue"				{ return 'RCONTINUE'}
+"function"				{ return 'RFUNCTION'}
+"return"				{ return 'RRETURN'}
+"returns"				{ return 'RRETURNS'}
+"procedure"				{ return 'RPROCEDURE'}
+"call"					{ return 'RCALL'}
 {variable}				{ return 'VARIABLE_NAME'}
 {date}					{ return 'DATE'}
 {decimal}               { return 'DECIMAL'} 
@@ -126,7 +131,12 @@ id 		[a-z][a-z0-9_-]*
   	import Group from '../expression/Group.js'
     import While from '../instruction/While.js'
     import For from '../instruction/For.js'
-
+    import Ffunction from '../instruction/Ffunction.js'
+    import Param from '../expression/Param.js'
+    import ReturnExpression from '../expression/ReturnExp.js'
+    import CallFunction from '../instruction/CallFunction.js'
+	import Procedure from '../instruction/Procedure.js'
+    import CallProcedure from '../instruction/CallProcedure.js'
 
 %}
 
@@ -139,7 +149,7 @@ id 		[a-z][a-z0-9_-]*
 %left 'NOT'
 %left 'EQUAL' 'DIFERENT' 'MINOR' 'MINOREQUAL' 'GREATER' 'GREATEREQUAL' 
 %left 'PLUS' 'LESS'
-%left 'DIVIDED' 'MODUL'
+%left 'BY' 'DIVIDED' 'MODUL' 
 %right 'NEG'
 
 
@@ -196,11 +206,29 @@ instruccion
 	| for{
 		$$ = $1
 	}
+	|function{
+		$$ = $1
+	}
+	|call_function{
+		$$ = $1
+	}
+	|procedure{
+		$$ = $1
+	}
+	|call_procedure{
+		$$ = $1
+	}
 	| RBREAK PUNTOCOMA{
 		$$ = new Primitive( null, Type_dxnry.BREAK)
 	}
 	| RCONTINUE PUNTOCOMA{
 		$$ = new Primitive( null, Type_dxnry.CONTINUE)
+	}
+	| RRETURN PUNTOCOMA{ 
+		$$ = new ReturnExpression( null, Type_dxnry.RETURN); 
+	}
+	| RRETURN expresion PUNTOCOMA{ 
+		$$ = new ReturnExpression( $2, Type_dxnry.RETURN); 
 	}
 ;
 
@@ -439,6 +467,9 @@ arit_cond
 	| LESS arit_cond %prec NEG{
 		$$ = new Aritmertic($2, "!", $2)
 	}
+	| arit_cond BY arit_cond{
+		$$ = new Aritmertic($1, $2, $3)
+	}
 	| primitivo{
 		$$ = $1
 	}
@@ -507,6 +538,59 @@ for
 
 ;
 
+function
+	: RCREATE RFUNCTION ID PARENIZQ params PARENDER RRETURN data_type RBEGIN newStatement REND PUNTOCOMA{
+		$$ = new Ffunction($3, $5, $8, $10)
+	}
+	| RCREATE RFUNCTION ID PARENIZQ params PARENDER RRETURNS data_type RBEGIN newStatement REND PUNTOCOMA{
+		$$ = new Ffunction($3, $5, $8, $10)
+	}
+;
+
+call_function
+	: RSELECT ID PARENIZQ args PARENDER PUNTOCOMA{
+		$$ = new CallFunction($2, $4)
+	}
+;
+
+args
+	: args COMMA expresion{
+		$1.push($3)
+		$$ = $1
+	}
+	| expresion{
+		$$ = [$1]
+	}
+	|{
+		$$ = []
+	}
+;
+
+procedure
+	: RCREATE RPROCEDURE ID params RAS RBEGIN newStatement REND PUNTOCOMA{
+		$$ = new Procedure($3, $4, $7)
+	}
+;
+
+call_procedure
+	: RCALL ID PARENIZQ args PARENDER PUNTOCOMA{
+		$$ = new CallProcedure($2, $4)
+	}
+;
+
+params
+	: params COMMA VARIABLE_NAME data_type{
+		$1.push( new Param($3, $4));
+        $$ = $1;
+	}
+	| VARIABLE_NAME data_type{
+		let param = new Param($1, $2)
+		let params = [];
+		params.push(param);
+		$$ = params;
+	}
+;
+
 expresion	
 	: primitivo{
 		$$ = $1
@@ -530,6 +614,12 @@ expresion
 	| VARIABLE_NAME{
 		$$ = new Variable($1)
 	}
+	| ID{
+		$$ = $1
+	} 
+	| ID PARENIZQ args PARENDER{
+		$$ = new CallFunction($1, $3)
+	}
 ;
 
 aritmetica
@@ -537,6 +627,9 @@ aritmetica
 		$$ = new Aritmertic($1, $2, $3)
 	}
 	| expresion LESS expresion{
+		$$ = new Aritmertic($1, $2, $3)
+	}
+	| expresion BY expresion{
 		$$ = new Aritmertic($1, $2, $3)
 	}
 	| expresion DIVIDED expresion{

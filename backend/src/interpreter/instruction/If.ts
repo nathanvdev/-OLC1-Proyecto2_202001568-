@@ -23,12 +23,15 @@ export default class If extends Instruction{
                 const element = this.codeIf.execute(env, env.nombre + " If");
 
                 if (element != null || element != undefined) {
+
                     if (element.type == Type_dxnry.BREAK) {
                         return element;
-
+                        
                     } else if (element.type == Type_dxnry.CONTINUE) {
                         return element;
 
+                    } else if (element.type == Type_dxnry.RETURN) {
+                        return element;
                     }
                 }
 

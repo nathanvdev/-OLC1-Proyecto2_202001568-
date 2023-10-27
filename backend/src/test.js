@@ -1,13 +1,15 @@
 let tmp = `
-declare @contador int;
-set @contador = 0;
+CREATE PROCEDURE print_together
+    @str1 VARCHAR,
+    @str2 VARCHAR,
+    @separator VARCHAR
+AS
+BEGIN
+    print @str1 + @separator + @str2;
+END;
 
-while @contador < 10;
-begin
-    break;
-    SET @contador = @contador + 1;
-end;
-
+CALL print_together("Hola","Adios", ", ");
+CALL print_together("Cadena1","Cadena2", ", ");
 `
 
 

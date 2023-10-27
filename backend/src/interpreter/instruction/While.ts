@@ -41,10 +41,8 @@ export default class While extends Instruction{
                     continue;
                 }
             }
-            
 
             contador++;
-
 
         }
 

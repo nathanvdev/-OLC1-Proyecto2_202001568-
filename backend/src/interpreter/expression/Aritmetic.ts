@@ -1,4 +1,4 @@
-import { Div_table, Mod_table, Neg_table, Res_table, Sum_table } from "../abstrac/Aritmetic_tables.js"
+import { Div_table, Mod_table, Neg_table, Res_table, Sum_table, Mul_table } from "../abstrac/Aritmetic_tables.js"
 import Environment from "../abstrac/Environment.js"
 import Expression from "../abstrac/Expression.js"
 import { Return, Type_dxnry } from "../abstrac/Return.js"
@@ -30,6 +30,10 @@ export default class Aritmertic extends Expression {
       case "/":
         let result3 = this.Div(op1, op2)
         return result3
+      
+      case "*":
+        let result6 = this.Mul(op1, op2)
+        return result6
 
       case "%":
         let result4 = this.Mod(op1, op2)
@@ -48,7 +52,9 @@ export default class Aritmertic extends Expression {
 
   private Sum(op1, op2): Return {
     const Result_type: Type_dxnry = Sum_table[op1.type][op2.type]
+
     switch (Result_type) {
+      
       case Type_dxnry.INT:
         if (op1.type == Type_dxnry.STRING) {
           op1.value = parseInt(op1.value)
@@ -124,6 +130,23 @@ export default class Aritmertic extends Expression {
 
       default:
         return { value: null, type: Type_dxnry.NULL }
+    }
+  }
+
+  private Mul(op1, op2): Return {
+    const Result_type: Type_dxnry = Mul_table[op1.type][op2.type]
+
+    switch (Result_type) {
+
+      case Type_dxnry.INT:
+        return { value: op1.value * op2.value, type: Type_dxnry.INT }
+
+      case Type_dxnry.DOUBLE:
+        return { value: op1.value * op2.value, type: Type_dxnry.DOUBLE }
+
+      default:
+        return { value: null, type: Type_dxnry.NULL }
+
     }
   }
 

@@ -1,3 +1,5 @@
+import Ffunction from "../instruction/Ffunction.js"
+import Procedure from "../instruction/Procedure.js"
 import { Return, Type_dxnry } from "./Return.js"
 import Symbol from "./Symbol.js"
 import { Table_SQL } from "./Table_SQL.js"
@@ -7,6 +9,8 @@ export default class Environment {
 
   private Variables: Map<string, Symbol>
   private Tables: Map<string, Table_SQL>
+  private Ffunctions = new Map<string, Ffunction>();
+  private Precedures = new Map<string, Procedure>();
   public nombre: string;;
 
   constructor(private Previus: Environment | null, nombre: string) {
@@ -117,7 +121,7 @@ export default class Environment {
 
   }
 
-  getVariable(arg0: string) {
+  public getVariable(arg0: string) {
     let env: Environment | null = this
     while (env != null) {
       if (env.Variables.has(arg0)) {
@@ -127,9 +131,59 @@ export default class Environment {
     }
   }
 
+  public SaveFunction(id: string, Ffunction: Ffunction) {
+    let env: Environment | null = this
 
+    if (!env.Ffunctions.has(id.toLowerCase())) {
+      env.Ffunctions.set(id.toLowerCase(), Ffunction);
+    } else {
+      console.log(`La funcion "${id}" ya existe en este ambito`)
+    }
+  }
+
+  public getFuncion(id: string): Ffunction | null{
+    let env: Environment | null = this;
+
+    while (env != null){
+      if (env.Ffunctions.has(id.toLowerCase())){
+          return env.Ffunctions.get(id.toLowerCase())!;
+      } 
+      env = env.Previus;
+    }
+    return null;
+  }
+
+  public getGlobal(): Environment{
+    let env: Environment | null = this;
+
+    while(env.Previus != null){
+      env = env.Previus;
+    }
+    return env;
+  }
+
+  public SaveProcedure(id: string, Procedure: Procedure) {
+    let env: Environment | null = this
+
+    if (!env.Precedures.has(id.toLowerCase())) {
+      env.Precedures.set(id.toLowerCase(), Procedure);
+    } else {
+      console.log(`El metodo "${id}" ya existe en este ambito`)
+    }
+  }
+
+  public getProcedure(id: string): Procedure | null{
+    let env: Environment | null = this;
+
+    while (env != null){
+      if (env.Precedures.has(id.toLowerCase())){
+          return env.Precedures.get(id.toLowerCase())!;
+      } 
+      env = env.Previus;
+    }
+    return null;
+  }
   
-
 }
 
 
