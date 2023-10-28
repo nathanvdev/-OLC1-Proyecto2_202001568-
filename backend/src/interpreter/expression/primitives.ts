@@ -1,3 +1,4 @@
+import Environment from "../abstrac/Environment.js"
 import Expression from "../abstrac/Expression.js"
 import { Return, Type_dxnry } from "../abstrac/Return.js"
 
@@ -13,7 +14,7 @@ export default class Primitive extends Expression {
   }
 
 
-  public execute(): Return {
+  public execute(env: Environment): Return {
     switch (this.type) {
       case Type_dxnry.INT:
         return { value: parseInt(this.value), type: Type_dxnry.INT }

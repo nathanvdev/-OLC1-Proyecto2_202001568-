@@ -16,8 +16,19 @@ export default class Aritmertic extends Expression {
   }
 
   public execute(env: Environment): Return {
-    const op1 = this.izq.execute(env)
-    const op2 = this.der.execute(env)
+    let op1: Return
+    let op2: Return
+    if (typeof this.izq === 'string') {
+      op1 = env.getVariable(this.izq)
+    }else{
+      op1 = this.izq.execute(env)
+    }
+    if (typeof this.der === 'string') {
+      op2 = env.getVariable(this.der)
+    }else{
+      op2 = this.der.execute(env)
+    }
+
     switch (this.operator) {
       case "+":
         let result = this.Sum(op1, op2)

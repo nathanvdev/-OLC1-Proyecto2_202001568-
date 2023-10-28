@@ -21,9 +21,7 @@ export default class dml_Update extends Instruction {
             console.error(`La tabla "${this.Table_name}" no existe`)
             return
         }
-        console.log()
         Table.Update(this.Columns, this.Where, env)
-        console.log()
 
     }
 

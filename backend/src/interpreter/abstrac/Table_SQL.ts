@@ -73,12 +73,19 @@ export class Table_SQL {
     public DeleteHeader(column_name: string) {
         for (let i = 0; i < this.Headers.length; i++) {
             if (this.Headers[i].getColumnName() == column_name) {
-                this.Headers[i].DeleteColumn();
-                console.log(`Se elimino la columna "${column_name}" de la tabla "${this.Name}"`);
-                return;
+                this.Headers.splice(i, 1);
+                console.log(`Se elimino la columna "${column_name}" en la tabla "${this.Name}"`);
+                break
             }
         }
-        console.log(`La columna "${column_name}" no existe en la tabla "${this.Name}"`);
+        for (let i = 0; i < this.Rows.length; i++) {
+            for (let j = 0; j < this.Rows[i].length; j++) {
+                if (this.Rows[i][j].getColumnName() == column_name) {
+                    this.Rows[i].splice(j, 1);
+                    break
+                }
+            }
+        }
     }
 
     public Rename_table(new_name: string) {
@@ -90,10 +97,17 @@ export class Table_SQL {
             if (this.Headers[i].getColumnName() == column_name) {
                 this.Headers[i].RenameColumn(new_name);
                 console.log(`Se renombro la columna "${column_name}" a "${new_name}" en la tabla "${this.Name}"`);
-                return;
+                break
             }
         }
-        console.log(`La columna "${column_name}" no existe en la tabla "${this.Name}"`);
+        for (let i = 0; i < this.Rows.length; i++) {
+            for (let j = 0; j < this.Rows[i].length; j++) {
+                if (this.Rows[i][j].getColumnName() == column_name) {
+                    this.Rows[i][j].RenameColumn(new_name);
+                    break
+                }
+            }
+        }
     }
 
     public getCountHeaders(): number {
@@ -147,7 +161,7 @@ export class Table_SQL {
                     row.forEach((tmp_column: Node_table) => {
                         if (column[0] == tmp_column.getColumnName()) {
                             const izq = column[1] as unknown as Primitive;
-                            tmp_column.setValue(izq.execute())
+                            tmp_column.setValue(izq.execute(env))
                             console.log(`Se actualizo la columna "${tmp_column.getColumnName()}" en la tabla "${this.Name}"`);
                         }
                     })
@@ -173,6 +187,6 @@ export class Table_SQL {
 }
 
 interface node_toInsert {
-    0: string;
-    1: Return;
+    0: string
+    1: Return
 }1

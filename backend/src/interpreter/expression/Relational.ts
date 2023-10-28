@@ -40,7 +40,7 @@ export default class Relational extends Expression {
         let result: Return = { value: false, type: Type_dxnry.BOOLEAN }
         for (const node of row) {
             const result1 = this.Verify(this.izq, "=", node.getColumnName())
-            const result2 = this.Verify(this.der.execute(env).value, this.operator, node.getValue())
+            const result2 = this.Verify(node.getValue(), this.operator, this.der.execute(env).value)
 
             if (result1 && result2) {
                 result = { value: true, type: Type_dxnry.BOOLEAN }

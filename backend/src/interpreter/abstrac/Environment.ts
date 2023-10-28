@@ -76,6 +76,7 @@ export default class Environment {
 
   public NewTable(name: string, table: Table_SQL) {
     this.Tables.set(name, table)
+    console.log(`se creo la tabla ${name}`)
   }
 
   public FindTable(name: string): Table_SQL | null {

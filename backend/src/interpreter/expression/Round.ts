@@ -23,7 +23,7 @@ export default class Round extends Expression {
             if (valor.type == Type_dxnry.DOUBLE || valor.type == Type_dxnry.INT) {
 
                 if (this.cant) {
-                    const num = this.cant.execute()
+                    const num = this.cant.execute(env)
                     integer = valor.value.toFixed(num.value)
                 } else {
                     integer = Math.round(valor.value);

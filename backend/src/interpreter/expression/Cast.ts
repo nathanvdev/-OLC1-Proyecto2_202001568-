@@ -12,7 +12,14 @@ export default class Cast extends Expression{
     }
 
     public execute(env: any):Return {
-        let value:Return = this.exp.execute(env)
+        let value:Return 
+        if (typeof this.exp === 'string') {
+            let tmp = env.getVariable(this.exp)
+            value = tmp
+        }else{
+            value = this.exp.execute(env)
+        }
+        
         switch (this.type) {
             
             case Type_dxnry.INT:

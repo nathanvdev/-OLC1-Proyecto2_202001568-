@@ -26,7 +26,8 @@ export default class dml_Insert extends Instruction{
         
         let toInsert = []
         for (let i = 0; i < this.Columns.length; i++) {
-            toInsert.push([this.Columns[i], this.Values[i].execute()])
+            let tmp_value = this.Values[i].execute(env)
+            toInsert.push([this.Columns[i], tmp_value])
         }
 
 

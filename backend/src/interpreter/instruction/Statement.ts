@@ -1,5 +1,6 @@
 import Environment from "../abstrac/Environment.js";
 import Instruction from "../abstrac/Instruction.js";
+import { Type_dxnry } from "../abstrac/Return.js";
 
 export default class Statement {
     private body: Array<Instruction>
@@ -17,7 +18,11 @@ export default class Statement {
 
                 // si la instruccion es tipo break/continuo devuelve el objeto
                 if(ret != null && ret != undefined){
-                    return ret;
+                    if (ret.type == Type_dxnry.BREAK) {
+                        break;
+                    } else if (ret.type == Type_dxnry.CONTINUE) {
+                        break;
+                    }
                 }
 
             } catch (e) {

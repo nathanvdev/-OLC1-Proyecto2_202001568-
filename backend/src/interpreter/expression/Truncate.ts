@@ -20,7 +20,7 @@ export default class Truncate extends Expression {
         if (valor != null || valor != undefined) {
             if (valor.type == Type_dxnry.DOUBLE || valor.type == Type_dxnry.INT) {
                 if (this.cant) {
-                    integer = this.truncateToDecimals(valor.value, this.cant.execute().value)
+                    integer = this.truncateToDecimals(valor.value, this.cant.execute(env).value)
                 }else{
                     integer = Math.floor(valor.value);
                 }

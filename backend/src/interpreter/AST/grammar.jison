@@ -8,8 +8,10 @@ date	\d{4}\-\d{2}\-\d{2}
 decimal \d+\.\d+
 entero  [0-9]+
 variable \@[^@\s,;()-]+
-cadena 	\"([^"\\]|\\.)*\"
+//REGEX CADENA DE TEXTO https://stackoverflow.com/questions/2039795/regular-expression-for-a-string-literal-in-flex-lex	
+cadena \"(\\.|[^"\\])*\"
 id 		[a-z_][a-z0-9_]*
+
 
 %%
 // -----> Reglas Lexicas
@@ -83,12 +85,6 @@ id 		[a-z_][a-z0-9_]*
 "returns"				{ return 'RRETURNS'}
 "procedure"				{ return 'RPROCEDURE'}
 "call"					{ return 'RCALL'}
-"lower"					{ return 'RLOWER'}
-"upper"					{ return 'RUPPER'}
-"round"					{ return 'RROUND'}
-"len"				{ return 'RLENGTH'}
-"truncate"				{ return 'RTRUNCATE'}
-"typeof"				{ return 'RTYPEOF'}
 {variable}				{ return 'VARIABLE_NAME'}
 {date}					{ return 'DATE'}
 {decimal}               { return 'DECIMAL'} 
@@ -98,8 +94,6 @@ id 		[a-z_][a-z0-9_]*
 
 // -----> Espacios en Blanco
 [ \s\r\n\t]             {/* Espacios se ignoran */}
-{coment_line}           {/* Comentarios de linea se ignoran */}
-{coment_multiline}      {/* Comentarios multilinea se ignoran */}
 
 
 
@@ -165,7 +159,7 @@ id 		[a-z_][a-z0-9_]*
 %left 'EQUAL' 'DIFERENT' 'MINOR' 'MINOREQUAL' 'GREATER' 'GREATEREQUAL' 
 %left 'PLUS' 'LESS'
 %left 'BY' 'DIVIDED' 'MODUL' 
-++++++%right 'NEG'
+%right 'NEG'
 
 
 // -------> Simbolo Inicial
@@ -208,6 +202,9 @@ instruccion
 	}
 	| dml{
 		$$ = $1
+	}
+	|RBEGIN newStatement REND PUNTOCOMA{
+		$$ = $2
 	}
 	| if{
 		$$ = $1
@@ -282,7 +279,7 @@ set
 ;
 
 select
-	: RSELECT expresion PUNTOCOMA{
+	: RSELECT expresion a_s PUNTOCOMA{
 		$$ = new Select($2)
 	}
 ;
@@ -361,12 +358,23 @@ dml_insert
 	}
 ;
 
-values_list
-	: values_list COMMA primitivo{
+id_list
+	: id_list COMMA expresion a_s{
 		$$ = $1
 		$1.push($3)
 	}
-	| primitivo{
+	| expresion a_s{
+		$$ = []
+		$$.push($1)
+	}
+;
+
+values_list
+	: values_list COMMA expresion{
+		$$ = $1
+		$1.push($3)
+	}
+	| expresion{
 		$$ = []
 		$$.push($1)
 	}
@@ -490,14 +498,8 @@ if
 ;
 
 case 
-	: RCASE expresion case_list RELSE expresion REND PUNTOCOMA{
-		$$ = new Case($2, $3, $5, null)
-	}
-	| RCASE expresion case_list RELSE expresion REND a_s PUNTOCOMA{
+	: RCASE expresion case_list RELSE expresion REND a_s PUNTOCOMA{
 		$$ = new Case($2, $3, $5, $7)
-	}
-	| RCASE case_list RELSE expresion REND PUNTOCOMA{
-		$$ = new Case(null, $2, $4, null)
 	}
 	| RCASE case_list RELSE expresion REND a_s PUNTOCOMA{
 		$$ = new Case(null, $2, $4, $6)
@@ -507,6 +509,9 @@ case
 a_s
 	: RAS expresion{
 		$$ = $2
+	}
+	|/* empty */{
+		$$ = null
 	}
 ;
 
@@ -536,8 +541,8 @@ while
 ;
 
 for
-	: RFOR VARIABLE_NAME RIN ENTERO RANGO ENTERO RBEGIN newStatement REND PUNTOCOMA{
-		$$ = new For(new Variable($2), parseInt($4), parseInt($6), $8)
+	: RFOR ID RIN ENTERO RANGO ENTERO RBEGIN newStatement REND PUNTOCOMA{
+		$$ = new For($2, parseInt($4), parseInt($6), $8)
 	}
 
 ;
@@ -588,6 +593,9 @@ params
 		params.push(param);
 		$$ = params;
 	}
+	|/* empty */{
+		$$ = []
+	}
 ;
 
 expresion	
@@ -616,20 +624,11 @@ expresion
 	| VARIABLE_NAME{
 		$$ = new Variable($1)
 	}
+	| ID{
+		$$ = $1
+	} 
 	| ID PARENIZQ args PARENDER{
 		$$ = new CallFunction($1, $3)
-	}
-;
-
-
-id_list
-	: id_list COMMA ID{
-		$1.push($3)
-		$$ = $1
-	}
-	| ID{
-		$$ = []
-		$$.push($1)
 	}
 ;
 
@@ -689,18 +688,16 @@ logica
 
 primitivo
 	: ENTERO{
-		$$ = new Primitive( $1, Type_dxnry.INT)
+		$$ = new Primitive( parseInt($1), Type_dxnry.INT)
 	}
 	| DECIMAL{
-		$$ = new Primitive( $1, Type_dxnry.DOUBLE)
+		$$ = new Primitive( parseFloat($1), Type_dxnry.DOUBLE)
 	}
 	| DATE{
 		$$ = new Primitive( $1, Type_dxnry.DATE)
 	}
 	| CADENA{
-		let string_tmp = $1.toString().replace('"','')
-		string_tmp = string_tmp.replace('"','')
-		$$ = new Primitive( string_tmp, Type_dxnry.STRING)
+		$$ = new Primitive( $1.slice(1, -1), Type_dxnry.STRING)
 	}
 	| RTRUE{
 		$$ = new Primitive( $1, Type_dxnry.BOOLEAN)

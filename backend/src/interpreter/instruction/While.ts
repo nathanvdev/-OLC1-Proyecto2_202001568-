@@ -28,7 +28,7 @@ export default class While extends Instruction{
             }
 
             // ejecutar codigo
-            const response = this.codeWhile.execute(env, env.nombre+" While")
+            const response = this.codeWhile.execute(env, " While")
             if( contador > 150){
                 console.log("Error: bucle infinito while");
                 break;
