@@ -37,6 +37,13 @@ export class dml_Select extends Instruction {
 
         let output = ""
 
+        if (Rows_selected.length < 1) {
+            for (const col of Table.getHeaders()) {
+                output += `| ${col.getColumnName()}\t`
+            }
+            output += "\n"
+        }
+
         for (const row of Rows_selected) {
             for (const col of row) {
                 output += `| ${col.getColumnName()}\t`
@@ -111,7 +118,7 @@ export class dml_Select_where extends Instruction {
         console.log(Rows_f)
 
         let output = ""
-        if (Rows_f.length == 0) {
+        if (Rows_f.length <1) {
             for (const col of Table.getHeaders()) {
                 output += `| ${col.getColumnName()}\t`
             }

@@ -2,7 +2,7 @@ import * as parser from '../interpreter/AST/parser.js'
 
 import { Request, Response } from "express"
 import Environment from "../interpreter/abstrac/Environment.js"
-import { clearOuts, outs, Errores, clearErrores } from '../out/out.js'
+import { clearOuts, outs, Errores } from '../out/out.js'
 import fs from 'fs';
 import { exec } from "child_process";
 

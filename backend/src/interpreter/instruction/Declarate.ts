@@ -138,16 +138,26 @@ export class Set extends Instruction {
 
 export class Select extends Instruction {
     private expr: Expression
+    private as: Expression | null
 
-    constructor(id: Expression) {
+    constructor(id: Expression, a_s:Expression|null) {
         super()
         this.expr = id
+        this.as = a_s
     }
 
     public execute(env: Environment) {
         let result = this.expr.execute(env)
         console.log(result.value)
-        outs.push(result.value)
+        let tmp = ""
+        if (this.as != null) {
+            let result_as = this.as.execute(env)
+            tmp = `|${result_as.value}|\n|${result.value}|\n`
+        }else{
+            tmp = `|${result.value}| \n|${result.value}|\n`
+        }
+
+        outs.push(tmp)
     }
 
     public GetDOT(): { rama: string; nodo: string; } {

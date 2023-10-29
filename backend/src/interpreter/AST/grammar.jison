@@ -288,7 +288,7 @@ set
 
 select
 	: RSELECT expresion a_s PUNTOCOMA{
-		$$ = new Select($2)
+		$$ = new Select($2, $3)
 	}
 ;
 

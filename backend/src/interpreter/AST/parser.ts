@@ -145,7 +145,7 @@ case 28:
 break;
 case 29:
 
-		this.$ = new Select($$[$0-2])
+		this.$ = new Select($$[$0-2], $$[$0-1])
 	
 break;
 case 33:
