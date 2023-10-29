@@ -1,0 +1,14 @@
+
+/*
+
+Carga de primer objeto json archivo medio
+
+*/
+
+{
+	"titulo1":"Reporte 1 MEDIO",
+	"titulo2":"Reporte 2 MEDIO",
+    "tituloybarra":"notas",
+    "v1":"aprobados"
+
+}

@@ -111,6 +111,11 @@ export class dml_Select_where extends Instruction {
         console.log(Rows_f)
 
         let output = ""
+        if (Rows_f.length == 0) {
+            for (const col of Table.getHeaders()) {
+                output += `| ${col.getColumnName()}\t`
+            }
+        }
         for (const row of Rows_f) {
             for (const col of row) {
                 output += `| ${col.getColumnName()}\t`

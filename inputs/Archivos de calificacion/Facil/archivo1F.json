@@ -1,0 +1,10 @@
+/*  carga 
+
+   de objeto json */
+
+
+{
+	"titulo1":"Reporte 1",
+	"var1": 60.0
+
+}

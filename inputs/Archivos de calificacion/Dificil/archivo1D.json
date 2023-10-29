@@ -1,0 +1,16 @@
+
+/*
+
+Carga de primer objeto json archivo dificil
+
+*/
+
+{
+	"titulo1":"Reporte 1 DIFICIL",
+    "tituloybarra":"edades",
+    "name1":"Kevin",
+    "name2":"Jose",
+    "name3":"Alexander"
+	
+
+}

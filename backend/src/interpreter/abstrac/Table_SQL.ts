@@ -114,6 +114,10 @@ export class Table_SQL {
         return this.Headers.length
     }
 
+    public getHeaders(): Node_table[] {
+        return this.Headers
+    }
+
     public InsertRow(toInsert: node_toInsert[]) {
         let newRow: Node_table[] = []
 

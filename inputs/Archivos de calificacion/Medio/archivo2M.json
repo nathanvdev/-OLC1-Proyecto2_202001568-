@@ -1,0 +1,12 @@
+/*
+
+segundo objeto json para archivo medio
+
+*/
+{
+    "name1":"Luis",
+    "var1": 70.0,
+    "var2": 9.8,
+    "var3": 6.0
+
+}
