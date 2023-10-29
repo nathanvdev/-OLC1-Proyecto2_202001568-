@@ -52,4 +52,51 @@ export default class Logics extends Expression {
         const result = new Logics(tmp1, this.operator, tmp2).execute(env)
         return { value: result.value, type: Type_dxnry.BOOLEAN };
     }
+
+    public GetDOT(): { rama: string; nodo: string; } {
+        //id unico
+        const id = Math.floor(Math.random() * (100-0)+0);
+        //generar el nombre del nodo
+        const nodo = `nodolog${id.toString()}`;
+
+        let rama = ``
+        switch(this.operator){
+
+           case "OR":
+               rama+= `${nodo}[label="||"];\n`
+               const codeop1: { rama: string; nodo: string; } = this.izq.GetDOT();
+               const codeop2: { rama: string; nodo: string; } = this.der.GetDOT();
+               rama += codeop1.rama;
+               rama += codeop2.rama;
+
+               rama += `${nodo} -> ${codeop1.nodo};\n`;
+               rama += `${nodo} -> ${codeop2.nodo};\n`;  
+
+               break;
+           case "AND":
+               rama+= `${nodo}[label="&&"];\n`;
+               const codeop3: { rama: string; nodo: string; } = this.izq.GetDOT();
+               const codeop4: { rama: string; nodo: string; } = this.der.GetDOT();
+               rama += codeop3.rama;
+               rama += codeop4.rama;
+
+               rama += `${nodo} -> ${codeop3.nodo};\n`;
+               rama += `${nodo} -> ${codeop4.nodo};\n`;  
+               break;
+           case "NOT":
+               rama+= `${nodo}[label="!"];\n`;
+               const codeop5: { rama: string; nodo: string; } = this.izq.GetDOT();
+               const codeop6: { rama: string; nodo: string; } = this.der.GetDOT();
+               rama += codeop5.rama;
+               rama += codeop6.rama;
+
+               rama += `${nodo} -> ${codeop5.nodo};\n`;
+               rama += `${nodo} -> ${codeop6.nodo};\n`;  
+               break;
+           default:
+               
+       }
+
+       return{rama: rama, nodo:nodo};
+   }
 }

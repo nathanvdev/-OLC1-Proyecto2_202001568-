@@ -50,5 +50,18 @@ export default class Case extends Instruction {
         
     }
 
+    public GetDOT(): { rama: string; nodo: string; } {
+        const id = Math.floor(Math.random() * (100-0)+0);
+        //genero el nodoname
+        const NodoPrincipal = `nodoCase${id.toString()}`;
+        let rama = `${NodoPrincipal} [label="Case"];\n`
+        const codigorama: { rama: string; nodo: string; } = this.expression.GetDOT()
+        rama += codigorama.rama;
+
+        rama+= `${NodoPrincipal} -> ${codigorama.nodo};\n`
+
+        return{rama: rama, nodo: NodoPrincipal};
+    }
+
 
 }

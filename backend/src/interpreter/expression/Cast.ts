@@ -43,4 +43,42 @@ export default class Cast extends Expression{
                 return { value: null, type: Type_dxnry.NULL }
         }
     }
+
+    private DotID(id_in: string): { rama: string, nodo: string } {
+        const id = Math.floor(Math.random() * (100 - 0) + 0);
+        const nodo = `nodoID${id.toString()}`;
+        let rama = `${nodo}[label="${id_in}"];\n`
+        return { rama: rama, nodo: nodo }
+    }
+
+    public GetDOT(): { rama: string; nodo: string; } {
+
+        //generar un id 
+        const id = Math.floor(Math.random() * (100 - 0) + 0);
+        //genero el nodoname
+        const NodoPrincipal = `nodoCast${id.toString()}`;
+        const NodoExp = `nodoExp${id.toString()}`;
+        const NodoType = `nodoType${id.toString()}`;
+
+        //generar las ramas del ast
+
+        let rama = `${NodoPrincipal}[label="Cast"];\n`;
+        rama += `${NodoExp}[label="Expresion"];\n`;
+        rama += `${NodoType}[label="Tipo"];\n`;
+
+        //se conecta el id con el nodo principal
+        rama += `${NodoPrincipal} -> ${NodoExp};\n`;
+        rama += `${NodoPrincipal} -> ${NodoType};\n`;
+
+
+        
+        const { rama: ramaExp, nodo: nodoExp } = this.DotID(this.exp.toString())
+        rama += ramaExp
+        rama += `${NodoExp} -> ${nodoExp};\n`;
+
+        rama += `${NodoType}[label="${this.type}"];\n`;
+
+        return { rama: rama, nodo: NodoPrincipal };
+        
+    }
 }

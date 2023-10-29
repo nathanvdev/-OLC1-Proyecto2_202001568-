@@ -31,12 +31,39 @@ export default class For extends Instruction {
                     break;
                 } else if (response.type == Type_dxnry.CONTINUE) {
                     continue;
+                } else if (response.type == Type_dxnry.RETURN) {
+                    return response;
                 }
             }
         }
+    }
 
+    public GetDOT(): { rama: string; nodo: string; } {
 
+        //id unico
+        const id = Math.floor(Math.random() * (100-0)+0);
+        //generar el nombre del nodo
+        const nodo = `nodofor${id.toString()}`;
 
+        let rama = '';
+
+        const declaracion: {rama:string, nodo: string} = {rama: this.ID.toString(), nodo: 'ID'};
+        rama += declaracion.rama;
+
+        const start: {rama: string, nodo: string} = {rama: this.start.toString(), nodo: 'start'};
+        rama += start.rama;
+        const end: {rama: string, nodo: string} = {rama: this.end.toString(), nodo: 'end'};
+        rama += end.rama;
+        const code: { rama: string, nodo: string} = this.Statement.GetDOT();
+        rama += code.rama;
+
+        rama+= `${nodo}[label="FOR"];\n`;
+        rama+= `${nodo} -> ${declaracion.nodo};\n`;
+        rama+= `${nodo} -> ${start.nodo};\n`;
+        rama+= `${nodo} -> ${end.nodo};\n`;
+        rama+= `${nodo} -> ${code.nodo};\n`;
+
+        return{rama: rama, nodo: nodo};
     }
 
 }

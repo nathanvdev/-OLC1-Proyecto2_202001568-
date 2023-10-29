@@ -25,4 +25,12 @@ export default class ddl_Add extends Instruction {
         Table.NewColumn(tmp_header)
 
     }
+
+    public GetDOT(): { rama: string; nodo: string; } {
+        const id = Math.floor(Math.random() * (100 - 0) + 0);
+        //genero el nodoname
+        const NodoPrincipal = `nodoAddColumn ${id.toString()}`;
+        let rama = `${NodoPrincipal} [label="Add Column"];\n`
+        return { rama: rama, nodo: NodoPrincipal };
+    }
 }

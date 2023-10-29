@@ -23,6 +23,21 @@ export const analizar = (req: Request, res: Response) => {
     inst.execute(env_global)
   }
 
+  let ASTDOT = `
+  digraph G {
+      nodoPrincipal[label="AST"];\n
+  `
+
+  for (const inst of ast_generated) {
+    const ar = inst.GetDOT();
+    ASTDOT += `${ar.rama}\n`;
+    ASTDOT += `nodoPrincipal -> ${ar.nodo}\n`;
+  }
+  ASTDOT += "\n}";
+
+  ASTDOT = ASTDOT.replace('@', "");
+
+  console.log(ASTDOT);
 
 }
 

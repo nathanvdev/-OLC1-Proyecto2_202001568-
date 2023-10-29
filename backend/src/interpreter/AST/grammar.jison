@@ -67,6 +67,11 @@ id 		[a-z_][a-z0-9_]*
 "truncate"				{ return 'RTRUNCATE'}
 "delete"				{ return 'RDELETE'}
 "cast"					{ return 'RCAST'}
+"lower"					{ return 'RLOWER'}
+"upper"					{ return 'RUPPER'}
+"round"					{ return 'RROUND'}
+"len"					{ return 'RLENGTH'}
+"typeof"				{ return 'RTYPEOF'}
 "as"					{ return 'RAS'}
 "if"					{ return 'RIF'}
 "then"					{ return 'RTHEN'}
@@ -611,16 +616,12 @@ expresion
 	| logica{
 		$$ = $1
 	}
-	| cast{
-		$$ = $1
-	}
 	| natives{
 		$$ = $1
 	}
 	| PARENIZQ expresion PARENDER{
 		$$ = new Group($2)
 	} 
-
 	| VARIABLE_NAME{
 		$$ = new Variable($1)
 	}
@@ -629,6 +630,9 @@ expresion
 	} 
 	| ID PARENIZQ args PARENDER{
 		$$ = new CallFunction($1, $3)
+	}
+	| cast{
+		$$ = $1
 	}
 ;
 

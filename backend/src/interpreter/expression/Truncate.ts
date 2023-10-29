@@ -21,7 +21,7 @@ export default class Truncate extends Expression {
             if (valor.type == Type_dxnry.DOUBLE || valor.type == Type_dxnry.INT) {
                 if (this.cant) {
                     integer = this.truncateToDecimals(valor.value, this.cant.execute(env).value)
-                }else{
+                } else {
                     integer = Math.floor(valor.value);
                 }
                 return { value: integer, type: Type_dxnry.INT }
@@ -33,9 +33,27 @@ export default class Truncate extends Expression {
         return { value: null, type: Type_dxnry.NULL };
     }
 
-    private truncateToDecimals(number:number, decimals:number) {
+    private truncateToDecimals(number: number, decimals: number) {
         const factor = 10 ** decimals;
         return Math.trunc(number * factor) / factor;
-      }
+    }
+
+    public GetDOT(): { rama: string; nodo: string; } {
+        //id unico
+        const id = Math.floor(Math.random() * (100 - 0) + 0);
+        //generar el nombre del nodo
+        const nodo = `nodoTruncate${id.toString()}`;
+        let rama = '';
+
+        rama += `${nodo}[label="Truncate"];\n`;
+
+        const codigoast: { rama: string, nodo: string } = this.expression.GetDOT();
+        rama += codigoast.rama;
+
+        rama += `${nodo} -> ${codigoast.nodo}\n`
+
+
+        return { rama: rama, nodo: nodo };
+    }
 
 }

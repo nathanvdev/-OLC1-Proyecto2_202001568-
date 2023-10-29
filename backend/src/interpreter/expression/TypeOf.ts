@@ -42,6 +42,24 @@ export default class TypeOf extends Expression {
 
     }
 
+    public GetDOT(): { rama: string; nodo: string; } {
+        //id unico
+       const id = Math.floor(Math.random() * (100-0)+0);
+       //generar el nombre del nodo
+       const nodo = `nodoTypeOf${id.toString()}`;
+       let rama = '';
+
+       rama += `${nodo}[label="TypeOf"];\n`;
+       
+       const codigoast: {rama: string, nodo: string} = this.expression.GetDOT();
+       rama += codigoast.rama;
+
+       rama += `${nodo} -> ${codigoast.nodo}\n`
+       
+
+       return{rama: rama, nodo: nodo};
+    }
+
 
 
 

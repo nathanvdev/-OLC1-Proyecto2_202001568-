@@ -20,6 +20,14 @@ export class ddl_Drop_Column extends Instruction{
 
         Table.DeleteHeader(this.Column_name)
     }
+
+    public GetDOT(): { rama: string; nodo: string; } {
+        const id = Math.floor(Math.random() * (100-0)+0);
+        //genero el nodoname
+        const NodoPrincipal = `nodoDropColumn ${id.toString()}`;
+        let rama = `${NodoPrincipal} [label="Drop Column"];\n`
+        return{rama: rama, nodo: NodoPrincipal};
+    }
 }
 
 export class ddl_Drop_Table extends Instruction{
@@ -38,5 +46,13 @@ export class ddl_Drop_Table extends Instruction{
         }
 
         env.DeleteTable(this.Table_name)
+    }
+
+    public GetDOT(): { rama: string; nodo: string; } {
+        const id = Math.floor(Math.random() * (100-0)+0);
+        //genero el nodoname
+        const NodoPrincipal = `nodoDropTable ${id.toString()}`;
+        let rama = `${NodoPrincipal} [label="Drop Table"];\n`
+        return{rama: rama, nodo: NodoPrincipal};
     }
 }

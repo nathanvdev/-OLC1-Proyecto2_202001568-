@@ -55,4 +55,34 @@ export default class If extends Instruction{
         }
 
     }
+
+    public GetDOT(): { rama: string; nodo: string; } {
+
+        //id unico
+        const id = Math.floor(Math.random() * (100 - 0) + 0);
+        //generar el nombre del nodo
+        const nodo = `nodoif${id.toString()}`;
+
+        let rama = '';
+
+        const codecondicion: { rama: string, nodo: string } = this.condition.GetDOT();
+        rama += codecondicion.rama;
+        const codeif: { rama: string, nodo: string } = this.codeIf.GetDOT();
+        console.log(codeif);
+        rama += codeif.rama;
+        if (this.codeElse != null) {
+            const codeelse: { rama: string, nodo: string } = this.codeElse.GetDOT();
+            rama += codeelse.rama;
+            rama += `${nodo} -> ${codeelse.nodo};\n`
+        }
+
+        rama += `${nodo}[label="IF"];\n`;
+        rama += `${nodo} -> ${codecondicion.nodo};\n`;
+        rama += `${nodo} -> ${codeif.nodo};\n`;
+
+
+
+
+        return { rama: rama, nodo: nodo };
+    }
 }

@@ -25,4 +25,17 @@ export default class dml_Update extends Instruction {
 
     }
 
+    public GetDOT(): { rama: string; nodo: string; } {
+        const id = Math.floor(Math.random() * (100 - 0) + 0);
+        //genero el nodoname
+        const NodoPrincipal = `nodoUpdate${id.toString()}`;
+        let rama = `${NodoPrincipal} [label="Update"];\n`
+        const codigorama: { rama: string; nodo: string; } = this.Where.GetDOT()
+        rama += codigorama.rama;
+
+        rama += `${NodoPrincipal} -> ${codigorama.nodo};\n`
+
+        return { rama: rama, nodo: NodoPrincipal };
+    }
+
 }

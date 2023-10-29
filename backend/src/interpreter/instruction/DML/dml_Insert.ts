@@ -29,9 +29,26 @@ export default class dml_Insert extends Instruction{
             let tmp_value = this.Values[i].execute(env)
             toInsert.push([this.Columns[i], tmp_value])
         }
-
-
         Table.InsertRow(toInsert)
+    }
 
+    public GetDOT(): { rama: string; nodo: string; } {
+        
+        const id = Math.floor(Math.random() * (100-0)+0);
+        //genero el nodoname
+        const NodoPrincipal = `nodoInsert${id.toString()}`;
+        let rama = `${NodoPrincipal} [label="Insert"];\n`
+
+        for (const column of this.Columns) {
+            rama += `${NodoPrincipal} -> nodo${column};\n`
+            rama += `nodo${column} [label="${column}"];\n`
+        }
+        for (const value of this.Values) {
+            const codigorama: { rama: string; nodo: string; } = value.GetDOT()
+            rama += codigorama.rama;
+            rama += `${NodoPrincipal} -> ${codigorama.nodo};\n`
+        }
+
+        return{rama: rama, nodo: NodoPrincipal};
     }
 }

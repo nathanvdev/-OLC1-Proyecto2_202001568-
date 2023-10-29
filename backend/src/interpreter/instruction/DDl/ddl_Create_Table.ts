@@ -25,6 +25,14 @@ export default class ddl_Create_Table extends Instruction {
 
     }
 
+    public GetDOT(): { rama: string; nodo: string; } {
+        const id = Math.floor(Math.random() * (100 - 0) + 0);
+        //genero el nodoname
+        const NodoPrincipal = `nodoCreateTable ${id.toString()}`;
+        let rama = `${NodoPrincipal} [label="Create Table"];\n`
+        return { rama: rama, nodo: NodoPrincipal };
+    }
+
 
 
 }

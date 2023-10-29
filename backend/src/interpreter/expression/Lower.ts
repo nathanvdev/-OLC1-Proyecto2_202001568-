@@ -28,4 +28,23 @@ export default class ToLower extends Expression {
         return { value: null, type: Type_dxnry.NULL };
 
     }
+
+    public GetDOT(): { rama: string; nodo: string; } {
+
+        //id unico
+        const id = Math.floor(Math.random() * (100-0)+0);
+        //generar el nombre del nodo
+        const nodo = `nodoLower${id.toString()}`;
+        let rama = '';
+
+        rama += `${nodo}[label="ToLower"];\n`;
+        
+        const codigoast: {rama: string, nodo: string} = this.expression.GetDOT();
+        rama += codigoast.rama;
+
+        rama += `${nodo} -> ${codigoast.nodo}\n`
+        
+
+        return{rama: rama, nodo: nodo};
+    }
 }

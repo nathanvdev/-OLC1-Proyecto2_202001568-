@@ -9,6 +9,7 @@ export default class Print extends Instruction {
     super()
     this.expression = expression
   }
+
   public execute(env: Environment) {
     const value = this.expression.execute(env)
 
@@ -18,5 +19,19 @@ export default class Print extends Instruction {
     } else {
       console.log(value.value, "TIPO:", value.type)
     }
+  }
+
+  public GetDOT(): { rama: string; nodo: string; } {
+    //id unico
+    const id = Math.floor(Math.random() * (100 - 0) + 0);
+    //generar el nombre del nodo
+    const nodo = `nodoPrint${id.toString()}`;
+    let rama = `${nodo}[label="Print"];\n`
+    const codigorama: { rama: string; nodo: string; } = this.expression.GetDOT();
+    rama += codigorama.rama;
+
+    rama += `${nodo} -> ${codigorama.nodo};\n`;
+
+    return { rama: rama, nodo: nodo }
   }
 }

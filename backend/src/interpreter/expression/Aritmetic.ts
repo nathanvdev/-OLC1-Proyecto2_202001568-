@@ -20,12 +20,12 @@ export default class Aritmertic extends Expression {
     let op2: Return
     if (typeof this.izq === 'string') {
       op1 = env.getVariable(this.izq)
-    }else{
+    } else {
       op1 = this.izq.execute(env)
     }
     if (typeof this.der === 'string') {
       op2 = env.getVariable(this.der)
-    }else{
+    } else {
       op2 = this.der.execute(env)
     }
 
@@ -41,7 +41,7 @@ export default class Aritmertic extends Expression {
       case "/":
         let result3 = this.Div(op1, op2)
         return result3
-      
+
       case "*":
         let result6 = this.Mul(op1, op2)
         return result6
@@ -60,12 +60,163 @@ export default class Aritmertic extends Expression {
 
   }
 
+  private DotID(id_in: string): { rama: string, nodo: string } {
+    const id = Math.floor(Math.random() * (100 - 0) + 0);
+    const nodo = `nodoID${id.toString()}`;
+    let rama = `${nodo}[label="${id_in}"];\n`
+    return { rama: rama, nodo: nodo }
+  }
+
+  public GetDOT(): { rama: string; nodo: string; } {
+
+    //id unico
+    const id = Math.floor(Math.random() * (100 - 0) + 0);
+    //generar el nombre del nodo
+    const nodo = `nodoArit${id.toString()}`;
+    let rama = ''
+    if (this.operator == "+") {
+      rama += `${nodo}[label="+"];\n`;
+      let codeop1
+      if (typeof this.izq === 'string') {
+        codeop1 = this.DotID(this.izq)
+      } else {
+        codeop1 = this.izq.GetDOT();
+      }
+      let codeop2
+      if (typeof this.der === 'string') {
+        codeop2 = this.DotID(this.der)
+      } else {
+        codeop2 = this.der.GetDOT();
+      }
+      rama += codeop1.rama;
+      rama += codeop2.rama;
+
+      rama += `${nodo} -> ${codeop1.nodo};\n`;
+      rama += `${nodo} -> ${codeop2.nodo};\n`;
+
+    } else if (this.operator == "-") {
+      rama += `${nodo}[label="-"];\n`;
+      let codeop1
+      if (typeof this.izq === 'string') {
+        codeop1 = this.DotID(this.izq)
+      } else {
+        codeop1 = this.izq.GetDOT();
+      }
+      let codeop2
+      if (typeof this.der === 'string') {
+        codeop2 = this.DotID(this.der)
+      } else {
+        codeop2 = this.der.GetDOT();
+      }
+      rama += codeop1.rama;
+      rama += codeop2.rama;
+
+      rama += `${nodo} -> ${codeop1.nodo};\n`;
+      rama += `${nodo} -> ${codeop2.nodo};\n`;
+
+    } else if (this.operator == "umenos") {
+      rama += `${nodo}[label="-"];\n`;
+      let codeop1
+      if (typeof this.izq === 'string') {
+        codeop1 = this.DotID(this.izq)
+      } else {
+        codeop1 = this.izq.GetDOT();
+      }
+      rama += codeop1.rama;
+
+      rama += `${nodo} -> ${codeop1.nodo};\n`;
+
+    } else if (this.operator == "*") {
+      rama += `${nodo}[label="*"];\n`;
+      let codeop1
+      if (typeof this.izq === 'string') {
+        codeop1 = this.DotID(this.izq)
+      } else {
+        codeop1 = this.izq.GetDOT();
+      }
+      let codeop2
+      if (typeof this.der === 'string') {
+        codeop2 = this.DotID(this.der)
+      } else {
+        codeop2 = this.der.GetDOT();
+      }
+      rama += codeop1.rama;
+      rama += codeop2.rama;
+
+      rama += `${nodo} -> ${codeop1.nodo};\n`;
+      rama += `${nodo} -> ${codeop2.nodo};\n`;
+
+    } else if (this.operator == "/") {
+      rama += `${nodo}[label="/"];\n`;
+      let codeop1
+      if (typeof this.izq === 'string') {
+        codeop1 = this.DotID(this.izq)
+      } else {
+        codeop1 = this.izq.GetDOT();
+      }
+      let codeop2
+      if (typeof this.der === 'string') {
+        codeop2 = this.DotID(this.der)
+      } else {
+        codeop2 = this.der.GetDOT();
+      }
+      rama += codeop1.rama;
+      rama += codeop2.rama;
+
+      rama += `${nodo} -> ${codeop1.nodo};\n`;
+      rama += `${nodo} -> ${codeop2.nodo};\n`;
+    } else if (this.operator == "^") {
+      rama += `${nodo}[label="^"];\n`;
+      let codeop1
+      if (typeof this.izq === 'string') {
+        codeop1 = this.DotID(this.izq)
+      } else {
+        codeop1 = this.izq.GetDOT();
+      }
+      let codeop2
+      if (typeof this.der === 'string') {
+        codeop2 = this.DotID(this.der)
+      } else {
+        codeop2 = this.der.GetDOT();
+      }
+      rama += codeop1.rama;
+      rama += codeop2.rama;
+
+      rama += `${nodo} -> ${codeop1.nodo};\n`;
+      rama += `${nodo} -> ${codeop2.nodo};\n`;
+
+    } else if (this.operator == "%") {
+      rama += `${nodo}[label="%"];\n`;
+      let codeop1
+      if (typeof this.izq === 'string') {
+        codeop1 = this.DotID(this.izq)
+      } else {
+        codeop1 = this.izq.GetDOT();
+      }
+      let codeop2
+      if (typeof this.der === 'string') {
+        codeop2 = this.DotID(this.der)
+      } else {
+        codeop2 = this.der.GetDOT();
+      }
+
+      rama += codeop1.rama;
+      rama += codeop2.rama;
+
+      rama += `${nodo} -> ${codeop1.nodo};\n`;
+      rama += `${nodo} -> ${codeop2.nodo};\n`;
+    }
+
+    return { rama: rama, nodo: nodo };
+
+  }
+
 
   private Sum(op1, op2): Return {
     const Result_type: Type_dxnry = Sum_table[op1.type][op2.type]
 
     switch (Result_type) {
-      
+
       case Type_dxnry.INT:
         if (op1.type == Type_dxnry.STRING) {
           op1.value = parseInt(op1.value)

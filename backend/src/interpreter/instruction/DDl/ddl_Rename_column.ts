@@ -22,4 +22,12 @@ export default class ddl_Rename_Column extends Instruction{
 
         Table.Rename_column(this.Column_name, this.New_name)
     }
+
+    public GetDOT(): { rama: string; nodo: string; } {
+        const id = Math.floor(Math.random() * (100-0)+0);
+        //genero el nodoname
+        const NodoPrincipal = `nodoRenameColumn ${id.toString()}`;
+        let rama = `${NodoPrincipal} [label="Rename Column"];\n`
+        return{rama: rama, nodo: NodoPrincipal};
+    }
 }

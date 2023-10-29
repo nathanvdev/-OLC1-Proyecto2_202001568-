@@ -22,6 +22,8 @@ export default class Statement {
                         break;
                     } else if (ret.type == Type_dxnry.CONTINUE) {
                         break;
+                    } else if (ret.type == Type_dxnry.RETURN) {
+                        return ret;
                     }
                 }
 
@@ -31,8 +33,27 @@ export default class Statement {
 
         }
         return null
-
     }
+ 
+    public GetDOT(): { rama: string; nodo: string; } {
+
+        //id unico
+        const id = Math.floor(Math.random() * (100-0)+0);
+        //generar el nombre del nodo
+        const nodo = `instrucciones${id.toString()}`;
+        
+        let rama = '';
+        rama += `${nodo}[label="Instrucciones"];\n`
+        for(const instrucciones of this.body){
+            const instruc = instrucciones.GetDOT();
+            rama += `${instruc.rama}\n`;
+            rama += `${nodo} -> ${instruc.nodo}\n`;
+        }
+    
+
+        return{rama: rama, nodo: nodo};
+    }
+
 
 
 }

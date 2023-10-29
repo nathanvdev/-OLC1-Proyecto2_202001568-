@@ -39,13 +39,35 @@ export default class While extends Instruction{
                     break;
                 }else if(response.type == Type_dxnry.CONTINUE){
                     continue;
+                } else if (response.type == Type_dxnry.RETURN) {
+                    return response;
                 }
             }
 
             contador++;
 
         }
+    }
+
+    public GetDOT(): { rama: string; nodo: string; } {
+
+        //id unico
+        const id = Math.floor(Math.random() * (100-0)+0);
+        //generar el nombre del nodo
+        const nodo = `nodowhile${id.toString()}`;
+
+        let rama = '';
+
+        const codecondicion: {rama: string, nodo: string} = this.condition.GetDOT();
+        rama += codecondicion.rama;
+        const code: {rama: string, nodo: string} = this.codeWhile.GetDOT();
+        rama += code.rama;
+
+        rama += `${nodo}[label="WHILE"];\n`;
+        rama += `${nodo} -> ${codecondicion.nodo};\n`;
+        rama += `${nodo} -> ${code.nodo};\n`;
 
 
+        return{rama: rama, nodo: nodo};
     }
 }

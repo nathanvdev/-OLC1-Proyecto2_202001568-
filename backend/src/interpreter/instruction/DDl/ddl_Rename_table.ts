@@ -22,4 +22,12 @@ export default class ddl_Rename_table extends Instruction{
     }
         
 
+    public GetDOT(): { rama: string; nodo: string; } {
+        const id = Math.floor(Math.random() * (100-0)+0);
+        //genero el nodoname
+        const NodoPrincipal = `nodoRenameTable ${id.toString()}`;
+        let rama = `${NodoPrincipal} [label="Rename Table"];\n`
+        return{rama: rama, nodo: NodoPrincipal};
+    }
+
 }

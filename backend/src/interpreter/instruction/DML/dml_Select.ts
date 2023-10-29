@@ -34,6 +34,15 @@ export class dml_Select extends Instruction {
         }
         console.log(Rows_selected)
     }
+
+    public GetDOT(): { rama: string; nodo: string; } {
+        const id = Math.floor(Math.random() * (100 - 0) + 0);
+        //genero el nodoname
+        const NodoPrincipal = `nodoSelect${id.toString()}`;
+        let rama = `${NodoPrincipal} [label="Select"];\n`
+        return { rama: rama, nodo: NodoPrincipal };
+    
+    }
 }
 
 export class dml_Select_where extends Instruction {
@@ -73,5 +82,18 @@ export class dml_Select_where extends Instruction {
             }
         })
         console.log(Rows_f)
+    }
+
+    public GetDOT(): { rama: string; nodo: string; } {
+        const id = Math.floor(Math.random() * (100 - 0) + 0);
+        //genero el nodoname
+        const NodoPrincipal = `nodoSelect${id.toString()}`;
+        let rama = `${NodoPrincipal} [label="Select"];\n`
+        const codigorama: { rama: string; nodo: string; } = this.Where.GetDOT()
+        rama += codigorama.rama;
+
+        rama += `${NodoPrincipal} -> ${codigorama.nodo};\n`
+
+        return { rama: rama, nodo: NodoPrincipal };
     }
 }
