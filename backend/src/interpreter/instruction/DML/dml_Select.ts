@@ -1,6 +1,7 @@
+import { outs } from "../../../out/out.js";
 import Environment from "../../abstrac/Environment.js";
 import Instruction from "../../abstrac/Instruction.js";
-import { Return } from "../../abstrac/Return.js";
+import { Return, Type_dxnry } from "../../abstrac/Return.js";
 import { Node_table, Table_SQL } from "../../abstrac/Table_SQL.js";
 import Logics from "../../expression/Logics.js";
 import Relational from "../../expression/Relational.js";
@@ -33,6 +34,32 @@ export class dml_Select extends Instruction {
             Rows_selected = Table.getRows(this.Columns)
         }
         console.log(Rows_selected)
+
+        let output = ""
+
+        for (const row of Rows_selected) {
+            for (const col of row) {
+                output += `| ${col.getColumnName()}\t`
+            }
+            output += "\n"
+            break
+        }
+
+        for (const row of Rows_selected) {
+            for (const col of row) {
+                if (col.getType() == Type_dxnry.DATE) {
+                    let date = new Date(col.getValue())
+                    output += `| ${date.toLocaleDateString("es-ES")}\t`
+                } else {
+                    output += `| ${col.getValue()}\t`
+                }
+            }
+            output += "\n"
+        }
+
+        outs.push(output)
+
+
     }
 
     public GetDOT(): { rama: string; nodo: string; } {
@@ -41,7 +68,7 @@ export class dml_Select extends Instruction {
         const NodoPrincipal = `nodoSelect${id.toString()}`;
         let rama = `${NodoPrincipal} [label="Select"];\n`
         return { rama: rama, nodo: NodoPrincipal };
-    
+
     }
 }
 
@@ -82,6 +109,27 @@ export class dml_Select_where extends Instruction {
             }
         })
         console.log(Rows_f)
+
+        let output = ""
+        for (const row of Rows_f) {
+            for (const col of row) {
+                output += `| ${col.getColumnName()}\t`
+            }
+            output += "\n"
+            break
+        }
+        for (const row of Rows_f) {
+            for (const col of row) {
+                if (col.getType() == Type_dxnry.DATE) {
+                    let date = new Date(col.getValue())
+                    output += `| ${date.toLocaleDateString("es-ES")}\t`
+                } else {
+                    output += `| ${col.getValue()}\t`
+                }
+            }
+            output += "\n"
+        }
+        outs.push(output)
     }
 
     public GetDOT(): { rama: string; nodo: string; } {

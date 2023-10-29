@@ -1,15 +1,16 @@
 import Environment from "../abstrac/Environment.js";
 import Instruction from "../abstrac/Instruction.js";
-import { Type_dxnry } from "../abstrac/Return.js";;
+import { Type_dxnry } from "../abstrac/Return.js";import Variable from "../expression/Variable.js";
+;
 import Statement from "./Statement.js";
 
 export default class For extends Instruction {
-    private ID: string
+    private ID: any
     private start: number
     private end: number
     private Statement: Statement
 
-    constructor(ID: string, start: number, end: number, Statement: Statement) {
+    constructor(ID: string | Variable, start: number, end: number, Statement: Statement) {
         super()
         this.ID = ID
         this.start = start
@@ -19,6 +20,9 @@ export default class For extends Instruction {
 
     public execute(env: Environment): any {
         const local = new Environment(env, "For")
+        if (this.ID instanceof Variable) {
+            this.ID = this.ID.getID()
+        }
         local.Save_def(this.ID, { value: this.start, type: Type_dxnry.INT }, Type_dxnry.INT)
 
         for (let i = this.start; i < this.end; i++) {

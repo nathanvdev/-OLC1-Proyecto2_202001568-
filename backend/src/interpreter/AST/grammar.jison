@@ -7,7 +7,7 @@
 date	\d{4}\-\d{2}\-\d{2}
 decimal \d+\.\d+
 entero  [0-9]+
-variable \@[^@\s,;()-]+
+variable \@[^@\s,;()*+-/%>=!]+
 //REGEX CADENA DE TEXTO https://stackoverflow.com/questions/2039795/regular-expression-for-a-string-literal-in-flex-lex	
 cadena \"(\\.|[^"\\])*\"
 id 		[a-z_][a-z0-9_]*
@@ -104,7 +104,9 @@ id 		[a-z_][a-z0-9_]*
 
 // -----> FIN DE CADENA Y ERRORES
 <<EOF>>               return 'EOF';
-.  { console.error('Error léxico: \"' + yytext + '\", linea: ' + yylloc.first_line + ', columna: ' + yylloc.first_column);  }
+.  { console.error('Error léxico: \"' + yytext + '\", linea: ' + yylloc.first_line + ', columna: ' + yylloc.first_column);  
+	 Errores.push('Error léxico: \"' + yytext + '\", linea: ' + yylloc.first_line + ', columna: ' + yylloc.first_column);
+	}
 
 
 /lex
@@ -113,6 +115,7 @@ id 		[a-z_][a-z0-9_]*
 // Codigo Typerscript
 
 %{
+	import {Errores } from '../../out/out.js'
   	import Print from '../instruction/print.js'
 	import Primitive from "../expression/primitives.js"
 	import {Type_dxnry} from "../abstrac/Return.js"
@@ -407,11 +410,11 @@ dml_update
 ;
 
 set_columns
-	: ID EQUAL primitivo{
+	: ID EQUAL expresion{
 		$$ = []
 		$$.push([$1, $3])
 	}
-	| set_columns COMMA ID EQUAL primitivo{
+	| set_columns COMMA ID EQUAL expresion{
 		$$ = $1
 		$1.push([$3, $5])
 	}
@@ -444,6 +447,9 @@ where_conds
 	}
 	| condition{
 		$$ = $1
+	}
+	| PARENIZQ where_conds PARENDER{
+		$$ = $2
 	}
 ;
 
@@ -547,6 +553,9 @@ while
 
 for
 	: RFOR ID RIN ENTERO RANGO ENTERO RBEGIN newStatement REND PUNTOCOMA{
+		$$ = new For($2, parseInt($4), parseInt($6), $8)
+	}
+	| RFOR VARIABLE_NAME RIN ENTERO RANGO ENTERO RBEGIN newStatement REND PUNTOCOMA{
 		$$ = new For($2, parseInt($4), parseInt($6), $8)
 	}
 
@@ -763,7 +772,8 @@ data_type
 	| RBOOLEAN{
 		$$ = Type_dxnry.BOOLEAN
 	}
-	| error{
+	| error PUNTOCOMA{
 		console.error('Error sintáctico: ' + yytext + ',  linea: ' + this.$.first_line + ', columna: ' + this.$.first_column)
+		Errores.push('Error sintáctico: ' + yytext + ',  linea: ' + this.$.first_line + ', columna: ' + this.$.first_column)
 	}
 ;

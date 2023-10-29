@@ -1,0 +1,6 @@
+.svg-panel {
+    width: 1190px; /* Ancho deseado del panel */
+    height: 400px; /* Altura deseada del panel */
+    overflow: auto; /* Agrega desplazamiento cuando el contenido es más grande que el panel */
+    border: 1px solid #ccc; /* Opcional: Agregar un borde al panel */
+  }

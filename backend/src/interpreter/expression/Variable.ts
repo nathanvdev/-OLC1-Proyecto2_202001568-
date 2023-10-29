@@ -9,15 +9,15 @@ export default class Variable extends Expression{
         super()
         this.id = id
     }
+    public getID(): string{
+        return this.id
+    }
 
     public execute(env: Environment): any {
         return env.getVariable(this.id.toLowerCase())
     }
 
     public GetDOT(): { rama: string; nodo: string; } {
-
-        
-
         const id = Math.floor(Math.random() * (100-0)+0);
         const nodo = `nodoAcces${id.toString().replace('@','')}`;
         let  rama = `${nodo}[label="Acceder"];\n`

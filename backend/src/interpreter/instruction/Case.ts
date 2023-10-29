@@ -1,3 +1,4 @@
+import { outs } from "../../out/out.js";
 import Environment from "../abstrac/Environment.js";
 import Expression from "../abstrac/Expression.js";
 import Instruction from "../abstrac/Instruction.js";
@@ -41,11 +42,14 @@ export default class Case extends Instruction {
         if (this.a_s) {
             if (typeof this.a_s === 'string') {
                 console.log("" + this.a_s+ " " + result.value)
+                outs.push("" + this.a_s+ " " + result.value)
             }else{
                 console.log("" + this.a_s.execute(env)+ " " + result.value)
+                outs.push("" + this.a_s.execute(env).value+ " " + result.value)
             }
         }else{
             console.log(result.value)
+            outs.push(result.value)
         }
         
     }
@@ -55,10 +59,13 @@ export default class Case extends Instruction {
         //genero el nodoname
         const NodoPrincipal = `nodoCase${id.toString()}`;
         let rama = `${NodoPrincipal} [label="Case"];\n`
-        const codigorama: { rama: string; nodo: string; } = this.expression.GetDOT()
-        rama += codigorama.rama;
 
-        rama+= `${NodoPrincipal} -> ${codigorama.nodo};\n`
+        if (this.expression != null) {
+            const codigorama: { rama: string; nodo: string; } = this.expression.GetDOT()
+            rama += codigorama.rama;
+            rama += `${NodoPrincipal} -> ${codigorama.nodo};\n`
+            
+        }
 
         return{rama: rama, nodo: NodoPrincipal};
     }

@@ -219,11 +219,9 @@ BEGIN
     DECLARE @mensaje VARCHAR;
     SET @mensaje = "\t\\Este es el \"fin\" de el \'Archivo\'\\\n";
     -- Select para imprimir expresiones
-    SELECT
-        CAST(-3.1416 * 2 AS VARCHAR) AS "Solo una operación más",
-        not true AS "True negado",
-        not false AS "False negado"
-    ;
+    SELECT CAST(-3.1416 * 2 AS VARCHAR) AS "Solo una operación más";
+    SELECT not rue AS "True negado";
+    SELECT not lse AS "False negado";
     PrInT @MenSAje;
 END;
 

@@ -1,0 +1,1091 @@
+
+  digraph G {
+      nodoPrincipal[label="AST"];
+
+  nodoCreateTable 20 [label="Create Table"];
+
+nodoPrincipal -> nodoCreateTable 20
+nodoCreateTable 17 [label="Create Table"];
+
+nodoPrincipal -> nodoCreateTable 17
+nodoCreateTable 52 [label="Create Table"];
+
+nodoPrincipal -> nodoCreateTable 52
+nodoCreateTable 28 [label="Create Table"];
+
+nodoPrincipal -> nodoCreateTable 28
+nodoRenameColumn 21 [label="Rename Column"];
+
+nodoPrincipal -> nodoRenameColumn 21
+nodoAddColumn 2 [label="Add Column"];
+
+nodoPrincipal -> nodoAddColumn 2
+nodoDropTable 2 [label="Drop Table"];
+
+nodoPrincipal -> nodoDropTable 2
+nodoDropTable 24 [label="Drop Table"];
+
+nodoPrincipal -> nodoDropTable 24
+nodoInsert86 [label="Insert"];
+nodoInsert86 -> nodoProductoID;
+nodoProductoID [label="ProductoID"];
+nodoInsert86 -> nodoNombre;
+nodoNombre [label="Nombre"];
+nodoInsert86 -> nodoPrecioUnitario;
+nodoPrecioUnitario [label="PrecioUnitario"];
+nodoInsert86 -> nodoStock;
+nodoStock [label="Stock"];
+nodoInsert86 -> nodoCategoria;
+nodoCategoria [label="Categoria"];
+nodoPrimitivo78[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo78[label="1"];
+
+     nodoPrimitivo78 -> nodoPrimitivonodoPrimitivo78;
+nodoInsert86 -> nodoPrimitivo78;
+nodoPrimitivo20[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo20[label="Producto X"];
+
+     nodoPrimitivo20 -> nodoPrimitivonodoPrimitivo20;
+nodoInsert86 -> nodoPrimitivo20;
+nodoPrimitivo99[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo99[label="1000"];
+
+     nodoPrimitivo99 -> nodoPrimitivonodoPrimitivo99;
+nodoInsert86 -> nodoPrimitivo99;
+nodoPrimitivo96[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo96[label="50"];
+
+     nodoPrimitivo96 -> nodoPrimitivonodoPrimitivo96;
+nodoInsert86 -> nodoPrimitivo96;
+nodoPrimitivo65[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo65[label="Electrónicos"];
+
+     nodoPrimitivo65 -> nodoPrimitivonodoPrimitivo65;
+nodoInsert86 -> nodoPrimitivo65;
+
+nodoPrincipal -> nodoInsert86
+nodoInsert96 [label="Insert"];
+nodoInsert96 -> nodoProductoID;
+nodoProductoID [label="ProductoID"];
+nodoInsert96 -> nodoNombre;
+nodoNombre [label="Nombre"];
+nodoInsert96 -> nodoPrecioUnitario;
+nodoPrecioUnitario [label="PrecioUnitario"];
+nodoInsert96 -> nodoStock;
+nodoStock [label="Stock"];
+nodoInsert96 -> nodoCategoria;
+nodoCategoria [label="Categoria"];
+nodoPrimitivo22[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo22[label="2"];
+
+     nodoPrimitivo22 -> nodoPrimitivonodoPrimitivo22;
+nodoInsert96 -> nodoPrimitivo22;
+nodoPrimitivo61[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo61[label="Producto Y"];
+
+     nodoPrimitivo61 -> nodoPrimitivonodoPrimitivo61;
+nodoInsert96 -> nodoPrimitivo61;
+nodoPrimitivo40[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo40[label="750.5"];
+
+     nodoPrimitivo40 -> nodoPrimitivonodoPrimitivo40;
+nodoInsert96 -> nodoPrimitivo40;
+nodoPrimitivo9[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo9[label="30"];
+
+     nodoPrimitivo9 -> nodoPrimitivonodoPrimitivo9;
+nodoInsert96 -> nodoPrimitivo9;
+nodoPrimitivo30[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo30[label="Ropa"];
+
+     nodoPrimitivo30 -> nodoPrimitivonodoPrimitivo30;
+nodoInsert96 -> nodoPrimitivo30;
+
+nodoPrincipal -> nodoInsert96
+nodoInsert86 [label="Insert"];
+nodoInsert86 -> nodoVentaID;
+nodoVentaID [label="VentaID"];
+nodoInsert86 -> nodoProductoID;
+nodoProductoID [label="ProductoID"];
+nodoInsert86 -> nodoCantidad;
+nodoCantidad [label="Cantidad"];
+nodoInsert86 -> nodoFechaVenta;
+nodoFechaVenta [label="FechaVenta"];
+nodoInsert86 -> nodoTotal;
+nodoTotal [label="Total"];
+nodoInsert86 -> nodoMetodoPago;
+nodoMetodoPago [label="MetodoPago"];
+nodoInsert86 -> nodoEstadoVenta;
+nodoEstadoVenta [label="EstadoVenta"];
+nodoPrimitivo19[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo19[label="501"];
+
+     nodoPrimitivo19 -> nodoPrimitivonodoPrimitivo19;
+nodoInsert86 -> nodoPrimitivo19;
+nodoPrimitivo44[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo44[label="1"];
+
+     nodoPrimitivo44 -> nodoPrimitivonodoPrimitivo44;
+nodoInsert86 -> nodoPrimitivo44;
+nodoPrimitivo18[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo18[label="10"];
+
+     nodoPrimitivo18 -> nodoPrimitivonodoPrimitivo18;
+nodoInsert86 -> nodoPrimitivo18;
+nodoPrimitivo70[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo70[label="2023-10-17"];
+
+     nodoPrimitivo70 -> nodoPrimitivonodoPrimitivo70;
+nodoInsert86 -> nodoPrimitivo70;
+nodoPrimitivo35[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo35[label="10000"];
+
+     nodoPrimitivo35 -> nodoPrimitivonodoPrimitivo35;
+nodoInsert86 -> nodoPrimitivo35;
+nodoPrimitivo88[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo88[label="Tarjeta"];
+
+     nodoPrimitivo88 -> nodoPrimitivonodoPrimitivo88;
+nodoInsert86 -> nodoPrimitivo88;
+nodoPrimitivo45[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo45[label="Completado"];
+
+     nodoPrimitivo45 -> nodoPrimitivonodoPrimitivo45;
+nodoInsert86 -> nodoPrimitivo45;
+
+nodoPrincipal -> nodoInsert86
+nodoInsert18 [label="Insert"];
+nodoInsert18 -> nodoVentaID;
+nodoVentaID [label="VentaID"];
+nodoInsert18 -> nodoProductoID;
+nodoProductoID [label="ProductoID"];
+nodoInsert18 -> nodoCantidad;
+nodoCantidad [label="Cantidad"];
+nodoInsert18 -> nodoFechaVenta;
+nodoFechaVenta [label="FechaVenta"];
+nodoInsert18 -> nodoTotal;
+nodoTotal [label="Total"];
+nodoInsert18 -> nodoMetodoPago;
+nodoMetodoPago [label="MetodoPago"];
+nodoInsert18 -> nodoEstadoVenta;
+nodoEstadoVenta [label="EstadoVenta"];
+nodoPrimitivo37[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo37[label="502"];
+
+     nodoPrimitivo37 -> nodoPrimitivonodoPrimitivo37;
+nodoInsert18 -> nodoPrimitivo37;
+nodoPrimitivo62[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo62[label="2"];
+
+     nodoPrimitivo62 -> nodoPrimitivonodoPrimitivo62;
+nodoInsert18 -> nodoPrimitivo62;
+nodoPrimitivo96[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo96[label="5"];
+
+     nodoPrimitivo96 -> nodoPrimitivonodoPrimitivo96;
+nodoInsert18 -> nodoPrimitivo96;
+nodoPrimitivo23[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo23[label="2023-10-16"];
+
+     nodoPrimitivo23 -> nodoPrimitivonodoPrimitivo23;
+nodoInsert18 -> nodoPrimitivo23;
+nodoPrimitivo40[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo40[label="3752.5"];
+
+     nodoPrimitivo40 -> nodoPrimitivonodoPrimitivo40;
+nodoInsert18 -> nodoPrimitivo40;
+nodoPrimitivo97[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo97[label="Efectivo"];
+
+     nodoPrimitivo97 -> nodoPrimitivonodoPrimitivo97;
+nodoInsert18 -> nodoPrimitivo97;
+nodoPrimitivo14[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo14[label="Pendiente"];
+
+     nodoPrimitivo14 -> nodoPrimitivonodoPrimitivo14;
+nodoInsert18 -> nodoPrimitivo14;
+
+nodoPrincipal -> nodoInsert18
+nodoSelect38 [label="Select"];
+nodolog7[label="&&"];
+nodolog79[label="&&"];
+nodolog95[label=">"];
+nodoID70[label="Stock"];
+nodoPrimitivo61[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo61[label="0"];
+
+     nodoPrimitivo61 -> nodoPrimitivonodoPrimitivo61;
+nodolog95 -> nodoID70;
+nodolog95 -> nodoPrimitivo61;
+nodolog33[label=">="];
+nodoID36[label="PrecioUnitario"];
+nodoPrimitivo64[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo64[label="800"];
+
+     nodoPrimitivo64 -> nodoPrimitivonodoPrimitivo64;
+nodolog33 -> nodoID36;
+nodolog33 -> nodoPrimitivo64;
+nodolog79 -> nodolog95;
+nodolog79 -> nodolog33;
+nodolog5[label="<="];
+nodoID41[label="PrecioUnitario"];
+nodoPrimitivo14[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo14[label="1200"];
+
+     nodoPrimitivo14 -> nodoPrimitivonodoPrimitivo14;
+nodolog5 -> nodoID41;
+nodolog5 -> nodoPrimitivo14;
+nodolog7 -> nodolog79;
+nodolog7 -> nodolog5;
+nodoSelect38 -> nodolog7;
+
+nodoPrincipal -> nodoSelect38
+nodoSelect21 [label="Select"];
+nodolog76[label="&&"];
+nodolog2[label="||"];
+nodolog2 -> nodolog71;
+nodolog2 -> nodolog65;
+nodolog76 -> nodolog2;
+nodolog76 -> nodolog70;
+nodoSelect21 -> nodolog76;
+
+nodoPrincipal -> nodoSelect21
+nodoUpdate54 [label="Update"];
+nodoUpdate54 -> nodolog14;
+
+nodoPrincipal -> nodoUpdate54
+nodoSelect68 [label="Select"];
+
+nodoPrincipal -> nodoSelect68
+nodoTruncate99 [label="Truncate"];
+
+nodoPrincipal -> nodoTruncate99
+nodoSelect63 [label="Select"];
+
+nodoPrincipal -> nodoSelect63
+nodoDelete25 [label="Delete"];
+nodoDelete25 -> nodolog2;
+
+nodoPrincipal -> nodoDelete25
+nodoSelect92 [label="Select"];
+
+nodoPrincipal -> nodoSelect92
+instrucciones77[label="Instrucciones"];
+nodoDeclarar59[label="Declarar"];
+nodoId59[label="valor1"];
+55
+nodoDeclarar59 -> nodoId59;
+nodoId59 -> 55;
+
+instrucciones77 -> nodoDeclarar59
+nodoDeclarar62[label="Declarar"];
+nodoId62[label="valor2"];
+30
+nodoDeclarar62 -> nodoId62;
+nodoId62 -> 30;
+
+instrucciones77 -> nodoDeclarar62
+nodolog73[label="&&"];
+nodolog35[label=">"];
+nodoGroup 99 [label="Group"];
+nodoArit51[label="-"];
+nodoAcces47[label="Acceder"];
+nodoAcces47Variable[label="valor1"]
+;nodoAcces47 -> nodoAcces47Variable;
+nodoAcces60[label="Acceder"];
+nodoAcces60Variable[label="valor2"]
+;nodoAcces60 -> nodoAcces60Variable;
+nodoArit51 -> nodoAcces47;
+nodoArit51 -> nodoAcces60;
+nodoGroup 99 -> nodoArit51;
+nodoPrimitivo54[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo54[label="10"];
+
+     nodoPrimitivo54 -> nodoPrimitivonodoPrimitivo54;
+nodolog35 -> nodoGroup 99;
+nodolog35 -> nodoPrimitivo54;
+nodolog73 -> nodolog68;
+nodolog73 -> nodolog35;
+instrucciones79[label="Instrucciones"];
+nodoPrint43[label="Print"];
+nodoPrimitivo8[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo8[label="El producto es divisible por 7 y la diferencia es mayor que 10"];
+
+     nodoPrimitivo8 -> nodoPrimitivonodoPrimitivo8;
+nodoPrint43 -> nodoPrimitivo8;
+
+instrucciones79 -> nodoPrint43
+instrucciones64[label="Instrucciones"];
+nodoPrint73[label="Print"];
+nodoPrimitivo29[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo29[label="Al menos una de las condiciones no se cumple"];
+
+     nodoPrimitivo29 -> nodoPrimitivonodoPrimitivo29;
+nodoPrint73 -> nodoPrimitivo29;
+
+instrucciones64 -> nodoPrint73
+nodoif82 -> instrucciones64;
+nodoif82[label="IF"];
+nodoif82 -> nodolog73;
+nodoif82 -> instrucciones79;
+
+instrucciones77 -> nodoif82
+nodoDeclarar27[label="Declarar"];
+nodoId27[label="cantidad"];
+12
+nodoDeclarar27 -> nodoId27;
+nodoId27 -> 12;
+
+instrucciones77 -> nodoDeclarar27
+nodoDeclarar4[label="Declarar"];
+nodoId4[label="precio"];
+18.75
+nodoDeclarar4 -> nodoId4;
+nodoId4 -> 18.75;
+
+instrucciones77 -> nodoDeclarar4
+nodolog71[label="||"];
+nodolog15[label=">="];
+nodoArit51[label="*"];
+nodoAcces48[label="Acceder"];
+nodoAcces48Variable[label="cantidad"]
+;nodoAcces48 -> nodoAcces48Variable;
+nodoAcces45[label="Acceder"];
+nodoAcces45Variable[label="precio"]
+;nodoAcces45 -> nodoAcces45Variable;
+nodoArit51 -> nodoAcces48;
+nodoArit51 -> nodoAcces45;
+nodoPrimitivo92[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo92[label="200"];
+
+     nodoPrimitivo92 -> nodoPrimitivonodoPrimitivo92;
+nodolog15 -> nodoArit51;
+nodolog15 -> nodoPrimitivo92;
+nodoGroup 5 [label="Group"];
+nodolog86[label="&&"];
+nodolog28[label=">="];
+nodoAcces83[label="Acceder"];
+nodoAcces83Variable[label="precio"]
+;nodoAcces83 -> nodoAcces83Variable;
+nodoPrimitivo13[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo13[label="15"];
+
+     nodoPrimitivo13 -> nodoPrimitivonodoPrimitivo13;
+nodolog28 -> nodoAcces83;
+nodolog28 -> nodoPrimitivo13;
+nodolog86 -> nodolog76;
+nodolog86 -> nodolog28;
+nodoGroup 5 -> nodolog86;
+nodolog71 -> nodolog15;
+nodolog71 -> nodoGroup 5;
+instrucciones95[label="Instrucciones"];
+nodoPrint63[label="Print"];
+nodoPrimitivo99[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo99[label="El total es mayor o igual a 200 o la cantidad es divisible por 3 y el precio es mayor o igual a 15"];
+
+     nodoPrimitivo99 -> nodoPrimitivonodoPrimitivo99;
+nodoPrint63 -> nodoPrimitivo99;
+
+instrucciones95 -> nodoPrint63
+instrucciones99[label="Instrucciones"];
+nodoPrint65[label="Print"];
+nodoPrimitivo73[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo73[label="Al menos una de las condiciones no se cumple"];
+
+     nodoPrimitivo73 -> nodoPrimitivonodoPrimitivo73;
+nodoPrint65 -> nodoPrimitivo73;
+
+instrucciones99 -> nodoPrint65
+nodoif47 -> instrucciones99;
+nodoif47[label="IF"];
+nodoif47 -> nodolog71;
+nodoif47 -> instrucciones95;
+
+instrucciones77 -> nodoif47
+nodoDeclarar75[label="Declarar"];
+nodoId75[label="edad"];
+19
+nodoDeclarar75 -> nodoId75;
+nodoId75 -> 19;
+
+instrucciones77 -> nodoDeclarar75
+nodoDeclarar57[label="Declarar"];
+nodoId57[label="puntuacion"];
+79
+nodoDeclarar57 -> nodoId57;
+nodoId57 -> 79;
+
+instrucciones77 -> nodoDeclarar57
+nodoCase4 [label="Case"];
+
+instrucciones77 -> nodoCase4
+nodoDeclarar64[label="Declarar"];
+nodoId64[label="sumaCuadrados"];
+0
+nodoDeclarar64 -> nodoId64;
+nodoId64 -> 0;
+
+instrucciones77 -> nodoDeclarar64
+nodoDeclarar70[label="Declarar"];
+nodoId70[label="i"];
+1
+nodoDeclarar70 -> nodoId70;
+nodoId70 -> 1;
+
+instrucciones77 -> nodoDeclarar70
+i110instrucciones74[label="Instrucciones"];
+nodoAsignar7 [label="Asignar"];
+nodoID43[label="undefined"];
+nodoAsignar7 -> nodoID43;
+
+instrucciones74 -> nodoAsignar7
+nodofor14[label="FOR"];
+nodofor14 -> ID;
+nodofor14 -> start;
+nodofor14 -> end;
+nodofor14 -> instrucciones74;
+
+instrucciones77 -> nodofor14
+nodoPrint36[label="Print"];
+nodoArit47[label="+"];
+nodoPrimitivo13[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo13[label="La suma de los cuadrados de los primeros 10 números naturales es: "];
+
+     nodoPrimitivo13 -> nodoPrimitivonodoPrimitivo13;
+nodoCast28[label="Cast"];
+nodoExp28[label="Expresion"];
+nodoType28[label="Tipo"];
+nodoCast28 -> nodoExp28;
+nodoCast28 -> nodoType28;
+nodoID58[label="[object Object]"];
+nodoExp28 -> nodoID58;
+nodoType28[label="3"];
+nodoArit47 -> nodoPrimitivo13;
+nodoArit47 -> nodoCast28;
+nodoPrint36 -> nodoArit47;
+
+instrucciones77 -> nodoPrint36
+
+nodoPrincipal -> instrucciones77
+nodoProcedure62[label="Procedure"];
+nodoId62[label="figura1"];
+nodoPar62[label="Parametros"];
+nodoParametros37[label=n];
+nodoPar62 -> nodoParametros37
+instrucciones73[label="Instrucciones"];
+nodoDeclarar5[label="Declarar"];
+nodoId5[label="i"];
+nodoDeclarar5 -> nodoId5;
+
+instrucciones73 -> nodoDeclarar5
+nodoDeclarar68[label="Declarar"];
+nodoId68[label="j"];
+nodoDeclarar68 -> nodoId68;
+
+instrucciones73 -> nodoDeclarar68
+nodoDeclarar44[label="Declarar"];
+nodoId44[label="cadenaFigura"];
+nodoDeclarar44 -> nodoId44;
+
+instrucciones73 -> nodoDeclarar44
+nodoAsignar81 [label="Asignar"];
+nodoID68[label="undefined"];
+nodoAsignar81 -> nodoID68;
+
+instrucciones73 -> nodoAsignar81
+nodolog81[label="<="];
+nodoID53[label="i"];
+nodoAcces25[label="Acceder"];
+nodoAcces25Variable[label="n"]
+;nodoAcces25 -> nodoAcces25Variable;
+nodolog81 -> nodoID53;
+nodolog81 -> nodoAcces25;
+instrucciones64[label="Instrucciones"];
+nodoAsignar46 [label="Asignar"];
+nodoID25[label=""];
+nodoAsignar46 -> nodoID25;
+
+instrucciones64 -> nodoAsignar46
+nodoAsignar19 [label="Asignar"];
+nodoID81[label="undefined"];
+nodoAsignar19 -> nodoID81;
+
+instrucciones64 -> nodoAsignar19
+nodolog65[label="<="];
+nodoAcces24[label="Acceder"];
+nodoAcces24Variable[label="j"]
+;nodoAcces24 -> nodoAcces24Variable;
+nodoArit89[label="/"];
+nodoArit93[label="*"];
+nodoPrimitivo35[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo35[label="3"];
+
+     nodoPrimitivo35 -> nodoPrimitivonodoPrimitivo35;
+nodoAcces29[label="Acceder"];
+nodoAcces29Variable[label="n"]
+;nodoAcces29 -> nodoAcces29Variable;
+nodoArit93 -> nodoPrimitivo35;
+nodoArit93 -> nodoAcces29;
+nodoPrimitivo19[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo19[label="2"];
+
+     nodoPrimitivo19 -> nodoPrimitivonodoPrimitivo19;
+nodoArit89 -> nodoArit93;
+nodoArit89 -> nodoPrimitivo19;
+nodolog65 -> nodoAcces24;
+nodolog65 -> nodoArit89;
+instrucciones91[label="Instrucciones"];
+nodoDeclarar55[label="Declarar"];
+nodoId55[label="absolutoi"];
+nodoDeclarar55 -> nodoId55;
+
+instrucciones91 -> nodoDeclarar55
+nodoDeclarar5[label="Declarar"];
+nodoId5[label="absolutoj"];
+nodoDeclarar5 -> nodoId5;
+
+instrucciones91 -> nodoDeclarar5
+nodolog99[label="<"];
+nodoAcces87[label="Acceder"];
+nodoAcces87Variable[label="i"]
+;nodoAcces87 -> nodoAcces87Variable;
+nodoPrimitivo92[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo92[label="0"];
+
+     nodoPrimitivo92 -> nodoPrimitivonodoPrimitivo92;
+nodolog99 -> nodoAcces87;
+nodolog99 -> nodoPrimitivo92;
+instrucciones60[label="Instrucciones"];
+nodoAsignar30 [label="Asignar"];
+nodoID66[label="undefined"];
+nodoAsignar30 -> nodoID66;
+
+instrucciones60 -> nodoAsignar30
+instrucciones37[label="Instrucciones"];
+nodoAsignar84 [label="Asignar"];
+nodoID93[label="undefined"];
+nodoAsignar84 -> nodoID93;
+
+instrucciones37 -> nodoAsignar84
+nodoif6 -> instrucciones37;
+nodoif6[label="IF"];
+nodoif6 -> nodolog99;
+nodoif6 -> instrucciones60;
+
+instrucciones91 -> nodoif6
+nodolog68[label="<"];
+nodoAcces4[label="Acceder"];
+nodoAcces4Variable[label="j"]
+;nodoAcces4 -> nodoAcces4Variable;
+nodoPrimitivo12[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo12[label="0"];
+
+     nodoPrimitivo12 -> nodoPrimitivonodoPrimitivo12;
+nodolog68 -> nodoAcces4;
+nodolog68 -> nodoPrimitivo12;
+instrucciones38[label="Instrucciones"];
+nodoAsignar3 [label="Asignar"];
+nodoID81[label="undefined"];
+nodoAsignar3 -> nodoID81;
+
+instrucciones38 -> nodoAsignar3
+instrucciones31[label="Instrucciones"];
+nodoAsignar2 [label="Asignar"];
+nodoID70[label="undefined"];
+nodoAsignar2 -> nodoID70;
+
+instrucciones31 -> nodoAsignar2
+nodoif77 -> instrucciones31;
+nodoif77[label="IF"];
+nodoif77 -> nodolog68;
+nodoif77 -> instrucciones38;
+
+instrucciones91 -> nodoif77
+nodoGroup 92 [label="Group"];
+nodolog57[label="||"];
+nodolog52[label="||"];
+nodolog48[label="<"];
+nodoArit1[label="+"];
+nodoAcces85[label="Acceder"];
+nodoAcces85Variable[label="absolutoi"]
+;nodoAcces85 -> nodoAcces85Variable;
+nodoAcces78[label="Acceder"];
+nodoAcces78Variable[label="absolutoj"]
+;nodoAcces78 -> nodoAcces78Variable;
+nodoArit1 -> nodoAcces85;
+nodoArit1 -> nodoAcces78;
+nodoAcces22[label="Acceder"];
+nodoAcces22Variable[label="n"]
+;nodoAcces22 -> nodoAcces22Variable;
+nodolog48 -> nodoArit1;
+nodolog48 -> nodoAcces22;
+nodoGroup 99 [label="Group"];
+nodolog63[label="<="];
+nodoArit50[label="+"];
+nodoArit3[label="*"];
+nodoGroup 63 [label="Group"];
+nodoArit51[label="-"];
+nodoArit3[label="/"];
+nodoPrimitivo58[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo58[label="2"];
+
+     nodoPrimitivo58 -> nodoPrimitivonodoPrimitivo58;
+nodoArit3 -> nodoArit22;
+nodoArit3 -> nodoPrimitivo58;
+nodoAcces53[label="Acceder"];
+nodoAcces53Variable[label="i"]
+;nodoAcces53 -> nodoAcces53Variable;
+nodoArit51 -> nodoArit3;
+nodoArit51 -> nodoAcces53;
+nodoGroup 63 -> nodoArit51;
+nodoGroup 97 [label="Group"];
+nodoArit81[label="-"];
+nodoArit92[label="/"];
+nodoPrimitivo75[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo75[label="2"];
+
+     nodoPrimitivo75 -> nodoPrimitivonodoPrimitivo75;
+nodoArit92 -> nodoArit90;
+nodoArit92 -> nodoPrimitivo75;
+nodoAcces69[label="Acceder"];
+nodoAcces69Variable[label="i"]
+;nodoAcces69 -> nodoAcces69Variable;
+nodoArit81 -> nodoArit92;
+nodoArit81 -> nodoAcces69;
+nodoGroup 97 -> nodoArit81;
+nodoArit3 -> nodoGroup 63;
+nodoArit3 -> nodoGroup 97;
+nodoArit51[label="*"];
+nodoGroup 26 [label="Group"];
+nodoArit57[label="-"];
+nodoArit51[label="/"];
+nodoAcces33[label="Acceder"];
+nodoAcces33Variable[label="n"]
+;nodoAcces33 -> nodoAcces33Variable;
+nodoPrimitivo53[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo53[label="2"];
+
+     nodoPrimitivo53 -> nodoPrimitivonodoPrimitivo53;
+nodoArit51 -> nodoAcces33;
+nodoArit51 -> nodoPrimitivo53;
+nodoID35[label="j"];
+nodoArit57 -> nodoArit51;
+nodoArit57 -> nodoID35;
+nodoGroup 26 -> nodoArit57;
+nodoGroup 53 [label="Group"];
+nodoArit45[label="-"];
+nodoArit69[label="/"];
+nodoAcces11[label="Acceder"];
+nodoAcces11Variable[label="n"]
+;nodoAcces11 -> nodoAcces11Variable;
+nodoPrimitivo29[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo29[label="2"];
+
+     nodoPrimitivo29 -> nodoPrimitivonodoPrimitivo29;
+nodoArit69 -> nodoAcces11;
+nodoArit69 -> nodoPrimitivo29;
+nodoAcces46[label="Acceder"];
+nodoAcces46Variable[label="j"]
+;nodoAcces46 -> nodoAcces46Variable;
+nodoArit45 -> nodoArit69;
+nodoArit45 -> nodoAcces46;
+nodoGroup 53 -> nodoArit45;
+nodoArit51 -> nodoGroup 26;
+nodoArit51 -> nodoGroup 53;
+nodoArit50 -> nodoArit3;
+nodoArit50 -> nodoArit51;
+nodoArit33[label="/"];
+nodoArit96[label="*"];
+nodoAcces93[label="Acceder"];
+nodoAcces93Variable[label="n"]
+;nodoAcces93 -> nodoAcces93Variable;
+nodoAcces67[label="Acceder"];
+nodoAcces67Variable[label="n"]
+;nodoAcces67 -> nodoAcces67Variable;
+nodoArit96 -> nodoAcces93;
+nodoArit96 -> nodoAcces67;
+nodoPrimitivo10[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo10[label="2"];
+
+     nodoPrimitivo10 -> nodoPrimitivonodoPrimitivo10;
+nodoArit33 -> nodoArit96;
+nodoArit33 -> nodoPrimitivo10;
+nodolog63 -> nodoArit50;
+nodolog63 -> nodoArit33;
+nodoGroup 99 -> nodolog63;
+nodolog52 -> nodolog48;
+nodolog52 -> nodoGroup 99;
+nodoGroup 32 [label="Group"];
+nodolog18[label="<="];
+nodoArit40[label="+"];
+nodoArit75[label="*"];
+nodoGroup 67 [label="Group"];
+nodoArit30[label="-"];
+nodoArit17[label="/"];
+nodoPrimitivo91[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo91[label="2"];
+
+     nodoPrimitivo91 -> nodoPrimitivonodoPrimitivo91;
+nodoArit17 -> nodoArit23;
+nodoArit17 -> nodoPrimitivo91;
+nodoAcces47[label="Acceder"];
+nodoAcces47Variable[label="i"]
+;nodoAcces47 -> nodoAcces47Variable;
+nodoArit30 -> nodoArit17;
+nodoArit30 -> nodoAcces47;
+nodoGroup 67 -> nodoArit30;
+nodoGroup 15 [label="Group"];
+nodoArit84[label="-"];
+nodoArit16[label="/"];
+nodoPrimitivo90[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo90[label="2"];
+
+     nodoPrimitivo90 -> nodoPrimitivonodoPrimitivo90;
+nodoArit16 -> nodoArit2;
+nodoArit16 -> nodoPrimitivo90;
+nodoAcces3[label="Acceder"];
+nodoAcces3Variable[label="i"]
+;nodoAcces3 -> nodoAcces3Variable;
+nodoArit84 -> nodoArit16;
+nodoArit84 -> nodoAcces3;
+nodoGroup 15 -> nodoArit84;
+nodoArit75 -> nodoGroup 67;
+nodoArit75 -> nodoGroup 15;
+nodoArit12[label="*"];
+nodoGroup 72 [label="Group"];
+nodoArit25[label="-"];
+nodoArit67[label="/"];
+nodoPrimitivo83[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo83[label="2"];
+
+     nodoPrimitivo83 -> nodoPrimitivonodoPrimitivo83;
+nodoArit67 -> nodoArit12;
+nodoArit67 -> nodoPrimitivo83;
+nodoAcces60[label="Acceder"];
+nodoAcces60Variable[label="j"]
+;nodoAcces60 -> nodoAcces60Variable;
+nodoArit25 -> nodoArit67;
+nodoArit25 -> nodoAcces60;
+nodoGroup 72 -> nodoArit25;
+nodoGroup 71 [label="Group"];
+nodoArit9[label="-"];
+nodoArit93[label="/"];
+nodoPrimitivo83[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo83[label="2"];
+
+     nodoPrimitivo83 -> nodoPrimitivonodoPrimitivo83;
+nodoArit93 -> nodoArit96;
+nodoArit93 -> nodoPrimitivo83;
+nodoAcces87[label="Acceder"];
+nodoAcces87Variable[label="j"]
+;nodoAcces87 -> nodoAcces87Variable;
+nodoArit9 -> nodoArit93;
+nodoArit9 -> nodoAcces87;
+nodoGroup 71 -> nodoArit9;
+nodoArit12 -> nodoGroup 72;
+nodoArit12 -> nodoGroup 71;
+nodoArit40 -> nodoArit75;
+nodoArit40 -> nodoArit12;
+nodoArit36[label="/"];
+nodoArit90[label="*"];
+nodoAcces48[label="Acceder"];
+nodoAcces48Variable[label="n"]
+;nodoAcces48 -> nodoAcces48Variable;
+nodoAcces43[label="Acceder"];
+nodoAcces43Variable[label="n"]
+;nodoAcces43 -> nodoAcces43Variable;
+nodoArit90 -> nodoAcces48;
+nodoArit90 -> nodoAcces43;
+nodoPrimitivo22[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo22[label="2"];
+
+     nodoPrimitivo22 -> nodoPrimitivonodoPrimitivo22;
+nodoArit36 -> nodoArit90;
+nodoArit36 -> nodoPrimitivo22;
+nodolog18 -> nodoArit40;
+nodolog18 -> nodoArit36;
+nodoGroup 32 -> nodolog18;
+nodolog57 -> nodolog52;
+nodolog57 -> nodoGroup 32;
+nodoGroup 92 -> nodolog57;
+instrucciones36[label="Instrucciones"];
+nodoAsignar98 [label="Asignar"];
+nodoID79[label="undefined"];
+nodoAsignar98 -> nodoID79;
+
+instrucciones36 -> nodoAsignar98
+instrucciones82[label="Instrucciones"];
+nodoAsignar51 [label="Asignar"];
+nodoID45[label="undefined"];
+nodoAsignar51 -> nodoID45;
+
+instrucciones82 -> nodoAsignar51
+nodoif28 -> instrucciones82;
+nodoif28[label="IF"];
+nodoif28 -> nodoGroup 92;
+nodoif28 -> instrucciones36;
+
+instrucciones91 -> nodoif28
+nodoAsignar8 [label="Asignar"];
+nodoID47[label="undefined"];
+nodoAsignar8 -> nodoID47;
+
+instrucciones91 -> nodoAsignar8
+nodowhile66[label="WHILE"];
+nodowhile66 -> nodolog65;
+nodowhile66 -> instrucciones91;
+
+instrucciones64 -> nodowhile66
+nodoSelect66 [label="Select"];
+nodoAcces34[label="Acceder"];
+nodoAcces34Variable[label="cadenaFigura"]
+;nodoAcces34 -> nodoAcces34Variable;
+nodoSelect66 -> nodoAcces34;
+
+instrucciones64 -> nodoSelect66
+nodoAsignar35 [label="Asignar"];
+nodoID60[label="undefined"];
+nodoAsignar35 -> nodoID60;
+
+instrucciones64 -> nodoAsignar35
+nodowhile26[label="WHILE"];
+nodowhile26 -> nodolog81;
+nodowhile26 -> instrucciones64;
+
+instrucciones73 -> nodowhile26
+nodoPrint5[label="Print"];
+nodoPrimitivo4[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo4[label="la figura es un corazón <3"];
+
+     nodoPrimitivo4 -> nodoPrimitivonodoPrimitivo4;
+nodoPrint5 -> nodoPrimitivo4;
+
+instrucciones73 -> nodoPrint5
+nodoProcedure62 -> nodoId62;
+nodoProcedure62 -> nodoPar62;
+nodoProcedure62 -> instrucciones73;
+
+nodoPrincipal -> nodoProcedure62
+nodoFuncion85[label="Funcion"];
+nodoId85[label="Fibonacci"];
+nodoPar85[label="Parametros"];
+nodoParametros94[label=n];
+nodoPar85 -> nodoParametros94
+instrucciones77[label="Instrucciones"];
+nodoDeclarar46[label="Declarar"];
+nodoId46[label="resultado"];
+nodoDeclarar46 -> nodoId46;
+
+instrucciones77 -> nodoDeclarar46
+nodolog33[label=">"];
+nodoID51[label="n"];
+nodoPrimitivo27[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo27[label="1"];
+
+     nodoPrimitivo27 -> nodoPrimitivonodoPrimitivo27;
+nodolog33 -> nodoID51;
+nodolog33 -> nodoPrimitivo27;
+instrucciones60[label="Instrucciones"];
+nodoAsignar81 [label="Asignar"];
+nodoID67[label="undefined"];
+nodoAsignar81 -> nodoID67;
+
+instrucciones60 -> nodoAsignar81
+nodoif39[label="IF"];
+nodoif39 -> nodolog33;
+nodoif39 -> instrucciones60;
+
+instrucciones77 -> nodoif39
+instrucciones31[label="Instrucciones"];
+nodoAsignar52 [label="Asignar"];
+nodoID19[label="1"];
+nodoAsignar52 -> nodoID19;
+
+instrucciones31 -> nodoAsignar52
+nodoif48[label="IF"];
+nodoif48 -> nodolog36;
+nodoif48 -> instrucciones31;
+
+instrucciones77 -> nodoif48
+instrucciones82[label="Instrucciones"];
+nodoAsignar61 [label="Asignar"];
+nodoID75[label="0"];
+nodoAsignar61 -> nodoID75;
+
+instrucciones82 -> nodoAsignar61
+nodoif75[label="IF"];
+nodoif75 -> nodolog96;
+nodoif75 -> instrucciones82;
+
+instrucciones77 -> nodoif75
+nodolog55[label="<"];
+nodoID99[label="n"];
+nodoPrimitivo88[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo88[label="0"];
+
+     nodoPrimitivo88 -> nodoPrimitivonodoPrimitivo88;
+nodolog55 -> nodoID99;
+nodolog55 -> nodoPrimitivo88;
+instrucciones19[label="Instrucciones"];
+nodoAsignar32 [label="Asignar"];
+nodoID97[label="NULL"];
+nodoAsignar32 -> nodoID97;
+
+instrucciones19 -> nodoAsignar32
+nodoif1[label="IF"];
+nodoif1 -> nodolog55;
+nodoif1 -> instrucciones19;
+
+instrucciones77 -> nodoif1
+nodoReturn69[label="Return"];
+
+instrucciones77 -> nodoReturn69
+nodoFuncion85 -> nodoId85;
+nodoFuncion85 -> nodoPar85;
+nodoFuncion85 -> instrucciones77;
+
+nodoPrincipal -> nodoFuncion85
+nodoProcedure48[label="Procedure"];
+nodoId48[label="SumarNumeros"];
+nodoPar48[label="Parametros"];
+nodoParametros25[label=numero1];
+nodoPar48 -> nodoParametros25
+nodoParametros78[label=numero2];
+nodoPar48 -> nodoParametros78
+instrucciones61[label="Instrucciones"];
+nodoDeclarar83[label="Declarar"];
+nodoId83[label="resultado"];
+nodoDeclarar83 -> nodoId83;
+
+instrucciones61 -> nodoDeclarar83
+nodoAsignar35 [label="Asignar"];
+nodoID38[label="undefined"];
+nodoAsignar35 -> nodoID38;
+
+instrucciones61 -> nodoAsignar35
+nodoPrint27[label="Print"];
+nodoArit41[label="+"];
+nodoPrimitivo28[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo28[label="La suma es: "];
+
+     nodoPrimitivo28 -> nodoPrimitivonodoPrimitivo28;
+nodoCast80[label="Cast"];
+nodoExp80[label="Expresion"];
+nodoType80[label="Tipo"];
+nodoCast80 -> nodoExp80;
+nodoCast80 -> nodoType80;
+nodoID35[label="[object Object]"];
+nodoExp80 -> nodoID35;
+nodoType80[label="3"];
+nodoArit41 -> nodoPrimitivo28;
+nodoArit41 -> nodoCast80;
+nodoPrint27 -> nodoArit41;
+
+instrucciones61 -> nodoPrint27
+nodoProcedure48 -> nodoId48;
+nodoProcedure48 -> nodoPar48;
+nodoProcedure48 -> instrucciones61;
+
+nodoPrincipal -> nodoProcedure48
+nodoFuncion86[label="Funcion"];
+nodoId86[label="figura1"];
+nodoPar86[label="Parametros"];
+nodoPrimitivo45[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo45[label="10"];
+
+     nodoPrimitivo45 -> nodoPrimitivonodoPrimitivo45;
+nodoPar86 -> nodoPrimitivo45
+nodoFuncion86 -> nodoId86;
+nodoFuncion86 -> nodoPar86;
+
+nodoPrincipal -> nodoFuncion86
+nodoFuncion62[label="Funcion"];
+nodoId62[label="SumarNumeros"];
+nodoPar62[label="Parametros"];
+nodoPrimitivo14[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo14[label="10"];
+
+     nodoPrimitivo14 -> nodoPrimitivonodoPrimitivo14;
+nodoPar62 -> nodoPrimitivo14
+nodoPrimitivo18[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo18[label="20"];
+
+     nodoPrimitivo18 -> nodoPrimitivonodoPrimitivo18;
+nodoPar62 -> nodoPrimitivo18
+nodoFuncion62 -> nodoId62;
+nodoFuncion62 -> nodoPar62;
+
+nodoPrincipal -> nodoFuncion62
+nodoSelect51 [label="Select"];
+nodoFuncion50[label="Funcion"];
+nodoId50[label="Fibonacci"];
+nodoPar50[label="Parametros"];
+nodoPrimitivo88[label="Primitivo"];
+
+     nodoPrimitivonodoPrimitivo88[label="10"];
+
+     nodoPrimitivo88 -> nodoPrimitivonodoPrimitivo88;
+nodoPar50 -> nodoPrimitivo88
+nodoFuncion50 -> nodoId50;
+nodoFuncion50 -> nodoPar50;
+nodoSelect51 -> nodoFuncion50;
+
+nodoPrincipal -> nodoSelect51
+
+}

@@ -1,3 +1,4 @@
+import { outs } from "../../out/out.js"
 import Environment from "../abstrac/Environment.js"
 import Expression from "../abstrac/Expression.js"
 import Instruction from "../abstrac/Instruction.js"
@@ -146,6 +147,7 @@ export class Select extends Instruction {
     public execute(env: Environment) {
         let result = this.expr.execute(env)
         console.log(result.value)
+        outs.push(result.value)
     }
 
     public GetDOT(): { rama: string; nodo: string; } {
